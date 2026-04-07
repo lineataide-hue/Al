@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O Labirinto do Intelecto — @alineataide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5F0E8;
+      --ivory: #EDE8DC;
+      --charcoal: #1C1C1E;
+      --warm-black: #111110;
+      --muted: #6B6B6B;
+      --accent: #8B7355;
+      --accent-light: #C4A882;
+      --white: #FFFFFF;
+      --slide-size: 540px;
+    }
+
+    body {
+      background: #0D0D0D;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px;
+      gap: 32px;
+      min-height: 100vh;
+    }
+
+    h1.page-title {
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .carousel-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      width: 100%;
+      max-width: calc(var(--slide-size) + 48px);
+    }
+
+    .slide {
+      width: var(--slide-size);
+      height: var(--slide-size);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Slide number badge */
+    .slide-num {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    /* Handle bar decoration */
+    .slide::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+    }
+
+    /* SLIDE 1 — Capa */
+    .slide-1 {
+      background: var(--warm-black);
+      color: var(--cream);
+      justify-content: flex-end;
+    }
+    .slide-1 .bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(139,115,85,0.08) 0%, rgba(17,17,16,0.95) 60%);
+      z-index: 1;
+    }
+    .slide-1 .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a18 0%, #0f0f0e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-1 .photo-placeholder span {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #333;
+      text-transform: uppercase;
+    }
+    .slide-1 .content {
+      position: relative;
+      z-index: 2;
+    }
+    .slide-1 .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+    }
+    .slide-1 h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .slide-1 .subtitle {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 360px;
+    }
+    .slide-1 .handle {
+      margin-top: 28px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent-light);
+    }
+
+    /* SLIDE 2 — A Ilusão */
+    .slide-2 {
+      background: var(--cream);
+      color: var(--warm-black);
+    }
+    .slide-2 .top-line {
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 32px;
+    }
+    .slide-2 .body-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: #444;
+      max-width: 400px;
+    }
+    .slide-2 .highlight-block {
+      border-left: 3px solid var(--accent);
+      padding: 16px 20px;
+      background: rgba(139,115,85,0.07);
+      margin-top: 24px;
+    }
+    .slide-2 .highlight-block p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--charcoal);
+    }
+
+    /* SLIDE 3 — Dogma Moderno */
+    .slide-3 {
+      background: #1C1C1E;
+      color: var(--cream);
+    }
+    .slide-3 h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+    .slide-3 .body-text {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #AAA;
+      max-width: 400px;
+    }
+    .slide-3 .keyword {
+      color: var(--accent-light);
+      font-style: italic;
+    }
+    .slide-3 .bottom-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* SLIDE 4 — Mecanismo da Estagnação */
+    .slide-4 {
+      background: var(--ivory);
+      color: var(--warm-black);
+    }
+    .slide-4 h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--charcoal);
+      margin-bottom: 28px;
+    }
+    .diagram {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-top: 8px;
+    }
+    .diagram-box {
+      flex: 1;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .diagram-box.left {
+      background: #DDD8CF;
+      border-radius: 4px 0 0 4px;
+    }
+    .diagram-box.right {
+      background: var(--accent);
+      border-radius: 0 4px 4px 0;
+    }
+    .diagram-box .label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .diagram-box.left .label { color: #888; }
+    .diagram-box.right .label { color: rgba(255,255,255,0.7); }
+    .diagram-box .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .diagram-box.left .value { color: var(--charcoal); }
+    .diagram-box.right .value { color: #fff; }
+    .diagram-box .desc {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .diagram-box.left .desc { color: #777; }
+    .diagram-box.right .desc { color: rgba(255,255,255,0.8); }
+    .diagram-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      background: var(--ivory);
+      color: var(--accent);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* SLIDE 5 — Metanoia */
+    .slide-5 {
+      background: var(--warm-black);
+      color: var(--cream);
+    }
+    .slide-5 .greek-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 900;
+      color: rgba(139,115,85,0.15);
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+    .slide-5 .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .slide-5 h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--cream);
+      margin-bottom: 24px;
+      max-width: 360px;
+    }
+    .slide-5 .body-text {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #AAA;
+      max-width: 380px;
+    }
+    .slide-5 .accent-word {
+      color: var(--accent-light);
+      font-weight: 500;
+    }
+
+    /* SLIDE 6 — Biologia da Mudança */
+    .slide-6 {
+      background: var(--cream);
+      color: var(--warm-black);
+    }
+    .slide-6 h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+    .slide-6 .body-text {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 24px;
+    }
+    .slide-6 .callout {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 20px 24px;
+      border-radius: 4px;
+    }
+    .slide-6 .callout p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    /* SLIDE 7 — A Grande Armadilha */
+    .slide-7 {
+      background: #1C1C1E;
+      color: var(--cream);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .slide-7 .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .slide-7 .body-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #AAA;
+      max-width: 380px;
+      margin: 0 auto 36px;
+    }
+    .slide-7 .central-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--cream);
+      border-top: 1px solid rgba(139,115,85,0.3);
+      border-bottom: 1px solid rgba(139,115,85,0.3);
+      padding: 20px 0;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    /* SLIDE 8 — O Encontro Real */
+    .slide-8 {
+      background: linear-gradient(160deg, #1a1614 0%, var(--warm-black) 100%);
+      color: var(--cream);
+    }
+    .slide-8 .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .slide-8 h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+    .slide-8 .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 24px;
+    }
+    .slide-8 .final-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--accent-light);
+      max-width: 380px;
+    }
+
+    /* SLIDE 9 — Open Loop */
+    .slide-9 {
+      background: var(--cream);
+      color: var(--warm-black);
+      justify-content: center;
+    }
+    .slide-9 .teaser-label {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .slide-9 h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+    .slide-9 .body-text {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #666;
+      max-width: 380px;
+    }
+    .slide-9 .bold-word {
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+    /* SLIDE 10 — CTA */
+    .slide-10 {
+      background: var(--charcoal);
+      color: var(--cream);
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .slide-10 .top-text {
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: #999;
+      margin-bottom: 28px;
+    }
+    .slide-10 .cta-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--cream);
+      max-width: 380px;
+      margin: 0 auto 32px;
+    }
+    .slide-10 .question-box {
+      background: rgba(139,115,85,0.12);
+      border: 1px solid rgba(139,115,85,0.3);
+      border-radius: 6px;
+      padding: 20px 28px;
+      max-width: 400px;
+      margin: 0 auto 28px;
+    }
+    .slide-10 .question-box p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #CCC;
+    }
+    .slide-10 .handle {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--accent-light);
+      font-weight: 500;
+    }
+
+    /* Shared label for slide number */
+    .slide-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .slide-label .num {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: #555;
+      text-transform: uppercase;
+    }
+    .slide-label .separator { width: 24px; height: 1px; background: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      :root { --slide-size: 90vw; }
+      .slide { padding: 32px 28px; }
+      .slide-1 h2 { font-size: 26px; }
+      .slide-5 .greek-word { font-size: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">Carrossel — O Labirinto do Intelecto</h1>
+
+  <div class="carousel-wrapper">
+
+    <!-- SLIDE 1 -->
+    <div class="slide slide-1">
+      <div class="photo-placeholder"><span>Sua foto aqui</span></div>
+      <div class="bg-overlay"></div>
+      <div class="content">
+        <div class="eyebrow">Psicologia · Fé · Neurociência</div>
+        <h2>"Entender seus traumas não é o mesmo que vencê-los."</h2>
+        <p class="subtitle">Por que o autoconhecimento, sozinho, pode ser apenas uma desculpa sofisticada.</p>
+        <div class="handle">@alineataide</div>
+      </div>
+      <span class="slide-num">01 / 10</span>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide slide-2">
+      <div>
+        <div class="slide-label">
+          <span class="num">A Ilusão da Evolução</span>
+          <span class="separator"></span>
+        </div>
+        <div class="top-line"></div>
+        <p class="body-text">Você coleciona diagnósticos, identifica gatilhos e dá nome aos seus padrões.<br><br>A linguagem está certa. O vocabulário é sofisticado. O entendimento é genuíno.</p>
+        <div class="highlight-block">
+          <p>"Mas saber o nome da gaiola não abre a porta. Você continua a mesma pessoa, apenas com um vocabulário melhor."</p>
+        </div>
+      </div>
+      <span class="slide-num">02 / 10</span>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide slide-3">
+      <div>
+        <div class="slide-label" style="margin-bottom:20px;">
+          <span class="num" style="color:#555;">O Dogma Moderno</span>
+          <span class="separator"></span>
+        </div>
+        <h3>Tratamos o "olhar para dentro" como um rito de cura automática.</h3>
+        <p class="body-text">Acreditamos que a consciência gera transformação. Mas a psicologia comportamental é clara: o <span class="keyword">insight</span> que não gera movimento é apenas acúmulo de informação.<br><br>A introspecção tornou-se uma estética, não uma ferramenta.</p>
+      </div>
+      <div class="bottom-label">Continua →</div>
+      <span class="slide-num">03 / 10</span>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide slide-4">
+      <div>
+        <div class="slide-label" style="margin-bottom:20px;">
+          <span class="num">O Mecanismo da Estagnação</span>
+          <span class="separator"></span>
+        </div>
+        <h3>Saber <em>por que</em> você reage mal não impede a reação.</h3>
+        <p style="font-size:13px; color:#777; margin-bottom:20px;">É o erro do intelecto sobre a ação.</p>
+        <div class="diagram">
+          <div class="diagram-box left">
+            <span class="label">Consciência Estática</span>
+            <span class="value">Eu sei o porquê</span>
+            <span class="desc">Reconhece o padrão. Nomeia. Arquiva. Repete.</span>
+          </div>
+          <div class="diagram-arrow">→</div>
+          <div class="diagram-box right">
+            <span class="label">Ação Regeneradora</span>
+            <span class="value">Eu escolho diferente</span>
+            <span class="desc">Rompe o padrão. Redireciona. Cria nova rota.</span>
+          </div>
+        </div>
+      </div>
+      <span class="slide-num">04 / 10</span>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide slide-5">
+      <div class="greek-word">μετάνοια</div>
+      <div>
+        <div class="eyebrow">A Raiz do Conceito</div>
+        <h3>O que a neurociência chama de mudança de rota, a tradição cristã chama de <span style="color:var(--accent-light)">Metanoia</span>.</h3>
+        <p class="body-text">Não é sobre culpa emocional. É sobre uma <span class="accent-word">ruptura na lógica do pensamento</span>.<br><br>É o redirecionamento da vontade — um movimento que começa onde o entendimento termina.</p>
+      </div>
+      <span class="slide-num">05 / 10</span>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide slide-6">
+      <div>
+        <div class="slide-label" style="margin-bottom:20px;">
+          <span class="num">A Biologia da Mudança</span>
+          <span class="separator"></span>
+        </div>
+        <h3>A verdadeira neuroplasticidade exige escolha.</h3>
+        <p class="body-text">Sem o "voltar-se para o novo", o cérebro apenas reforça as trilhas antigas com justificativas novas. A estrutura permanece. Só o rótulo muda.</p>
+        <div class="callout">
+          <p>"Autoconhecimento sem entrega é apenas uma armadura para o ego."</p>
+        </div>
+      </div>
+      <span class="slide-num">06 / 10</span>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide slide-7">
+      <div class="eyebrow">A Grande Armadilha</div>
+      <p class="body-text">Se o que você sabe sobre si serve para justificar seus erros — "eu sou assim por causa de X" — você não está se curando.<br><br>Você está se blindando.</p>
+      <p class="central-quote">"A explicação não substitui a transformação."</p>
+      <span class="slide-num">07 / 10</span>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide slide-8">
+      <div>
+        <div class="eyebrow">O Encontro Real</div>
+        <h3>Expor a ferida é o primeiro passo, mas a cicatrização acontece no altar da prática e da fé.</h3>
+        <div class="divider"></div>
+        <p class="final-quote">"O conhecimento te apresenta a você mesma.<br>Deus te apresenta a quem você pode ser."</p>
+      </div>
+      <span class="slide-num">08 / 10</span>
+    </div>
+
+    <!-- SLIDE 9 -->
+    <div class="slide slide-9">
+      <div>
+        <div class="teaser-label">Próximo Post</div>
+        <h3>Plasticidade Dependente de Experiência.</h3>
+        <p class="body-text">Vou te mostrar por que o seu cérebro só acredita naquilo que você <span class="bold-word">faz</span>, não no que você <span class="bold-word">pensa</span>.<br><br>Prepare-se para repensar o que você chama de fé.</p>
+      </div>
+      <span class="slide-num">09 / 10</span>
+    </div>
+
+    <!-- SLIDE 10 -->
+    <div class="slide slide-10">
+      <p class="top-text">Menos análise, mais obediência ao processo.</p>
+      <p class="cta-main">"Você tem usado o que sabe sobre si para mudar ou para se perdoar sem mudar?"</p>
+      <div class="question-box">
+        <p>Salva este post. Compartilha com quem precisa ouvir isso. E me conta nos comentários: qual é a sua resposta honesta?</p>
+      </div>
+      <div class="handle">@alineataide</div>
+      <span class="slide-num">10 / 10</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
