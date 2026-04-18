@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>O Labirinto do Intelecto — @alineataide</title>
+  <title>A Importância do Sono — @alineataide</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -63,7 +63,6 @@
       flex-shrink: 0;
     }
 
-    /* Slide number badge */
     .slide-num {
       position: absolute;
       top: 24px;
@@ -75,7 +74,6 @@
       color: var(--muted);
     }
 
-    /* Handle bar decoration */
     .slide::after {
       content: '';
       position: absolute;
@@ -95,7 +93,7 @@
     .slide-1 .bg-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(160deg, rgba(139,115,85,0.08) 0%, rgba(17,17,16,0.95) 60%);
+      background: linear-gradient(160deg, rgba(139,115,85,0.06) 0%, rgba(17,17,16,0.96) 55%);
       z-index: 1;
     }
     .slide-1 .photo-placeholder {
@@ -125,9 +123,9 @@
     }
     .slide-1 h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.25;
       color: var(--cream);
       margin-bottom: 16px;
     }
@@ -145,7 +143,7 @@
       color: var(--accent-light);
     }
 
-    /* SLIDE 2 — A Ilusão */
+    /* SLIDE 2 — O Mito do Esforço */
     .slide-2 {
       background: var(--cream);
       color: var(--warm-black);
@@ -178,16 +176,16 @@
       color: var(--charcoal);
     }
 
-    /* SLIDE 3 — Dogma Moderno */
+    /* SLIDE 3 — O que acontece enquanto você dorme */
     .slide-3 {
       background: #1C1C1E;
       color: var(--cream);
     }
     .slide-3 h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 26px;
+      font-size: 25px;
       font-weight: 700;
-      line-height: 1.3;
+      line-height: 1.35;
       color: var(--cream);
       margin-bottom: 24px;
     }
@@ -209,7 +207,7 @@
       color: var(--accent);
     }
 
-    /* SLIDE 4 — Mecanismo da Estagnação */
+    /* SLIDE 4 — Diagrama */
     .slide-4 {
       background: var(--ivory);
       color: var(--warm-black);
@@ -253,7 +251,7 @@
     .diagram-box.right .label { color: rgba(255,255,255,0.7); }
     .diagram-box .value {
       font-family: 'Playfair Display', serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 1.3;
     }
@@ -261,10 +259,10 @@
     .diagram-box.right .value { color: #fff; }
     .diagram-box .desc {
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
     .diagram-box.left .desc { color: #777; }
-    .diagram-box.right .desc { color: rgba(255,255,255,0.8); }
+    .diagram-box.right .desc { color: rgba(255,255,255,0.85); }
     .diagram-arrow {
       display: flex;
       align-items: center;
@@ -276,19 +274,19 @@
       flex-shrink: 0;
     }
 
-    /* SLIDE 5 — Metanoia */
+    /* SLIDE 5 — O Relógio Biológico */
     .slide-5 {
       background: var(--warm-black);
       color: var(--cream);
     }
-    .slide-5 .greek-word {
+    .slide-5 .bg-word {
       font-family: 'Playfair Display', serif;
-      font-size: 72px;
+      font-size: 64px;
       font-weight: 900;
-      color: rgba(139,115,85,0.15);
+      color: rgba(139,115,85,0.12);
       position: absolute;
-      top: 24px;
-      right: 32px;
+      top: 20px;
+      right: 24px;
       letter-spacing: -2px;
       line-height: 1;
     }
@@ -301,33 +299,33 @@
     }
     .slide-5 h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
-      line-height: 1.3;
+      line-height: 1.35;
       color: var(--cream);
       margin-bottom: 24px;
-      max-width: 360px;
+      max-width: 380px;
     }
     .slide-5 .body-text {
       font-size: 13px;
       font-weight: 300;
       line-height: 1.75;
       color: #AAA;
-      max-width: 380px;
+      max-width: 400px;
     }
     .slide-5 .accent-word {
       color: var(--accent-light);
       font-weight: 500;
     }
 
-    /* SLIDE 6 — Biologia da Mudança */
+    /* SLIDE 6 — O Custo Invisível */
     .slide-6 {
       background: var(--cream);
       color: var(--warm-black);
     }
     .slide-6 h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 23px;
       font-weight: 700;
       line-height: 1.35;
       color: var(--charcoal);
@@ -352,7 +350,7 @@
       line-height: 1.55;
     }
 
-    /* SLIDE 7 — A Grande Armadilha */
+    /* SLIDE 7 — A Dívida que não se paga */
     .slide-7 {
       background: #1C1C1E;
       color: var(--cream);
@@ -376,9 +374,9 @@
     }
     .slide-7 .central-quote {
       font-family: 'Playfair Display', serif;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      line-height: 1.35;
+      line-height: 1.4;
       color: var(--cream);
       border-top: 1px solid rgba(139,115,85,0.3);
       border-bottom: 1px solid rgba(139,115,85,0.3);
@@ -387,7 +385,7 @@
       margin: 0 auto;
     }
 
-    /* SLIDE 8 — O Encontro Real */
+    /* SLIDE 8 — O Descanso como Disciplina */
     .slide-8 {
       background: linear-gradient(160deg, #1a1614 0%, var(--warm-black) 100%);
       color: var(--cream);
@@ -437,7 +435,7 @@
     }
     .slide-9 h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 28px;
+      font-size: 27px;
       font-weight: 700;
       line-height: 1.3;
       color: var(--charcoal);
@@ -470,7 +468,7 @@
     }
     .slide-10 .cta-main {
       font-family: 'Playfair Display', serif;
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
       line-height: 1.4;
       color: var(--cream);
@@ -497,7 +495,6 @@
       font-weight: 500;
     }
 
-    /* Shared label for slide number */
     .slide-label {
       display: flex;
       align-items: center;
@@ -512,18 +509,17 @@
     }
     .slide-label .separator { width: 24px; height: 1px; background: var(--accent); }
 
-    /* Responsive */
     @media (max-width: 600px) {
       :root { --slide-size: 90vw; }
       .slide { padding: 32px 28px; }
-      .slide-1 h2 { font-size: 26px; }
-      .slide-5 .greek-word { font-size: 52px; }
+      .slide-1 h2 { font-size: 24px; }
+      .slide-5 .bg-word { font-size: 46px; }
     }
   </style>
 </head>
 <body>
 
-  <h1 class="page-title">Carrossel — O Labirinto do Intelecto</h1>
+  <h1 class="page-title">Carrossel — A Importância do Sono</h1>
 
   <div class="carousel-wrapper">
 
@@ -532,9 +528,9 @@
       <div class="photo-placeholder"><span>Sua foto aqui</span></div>
       <div class="bg-overlay"></div>
       <div class="content">
-        <div class="eyebrow">Psicologia · Fé · Neurociência</div>
-        <h2>"Entender seus traumas não é o mesmo que vencê-los."</h2>
-        <p class="subtitle">Por que o autoconhecimento, sozinho, pode ser apenas uma desculpa sofisticada.</p>
+        <div class="eyebrow">Neurociência · Bem-Estar · Performance</div>
+        <h2>"Você não descansa.<br>Você sobrevive à privação."</h2>
+        <p class="subtitle">Por que dormir pouco não é sinal de esforço — é sabotagem silenciosa do seu melhor.</p>
         <div class="handle">@alineataide</div>
       </div>
       <span class="slide-num">01 / 10</span>
@@ -544,13 +540,13 @@
     <div class="slide slide-2">
       <div>
         <div class="slide-label">
-          <span class="num">A Ilusão da Evolução</span>
+          <span class="num">O Mito do Esforço</span>
           <span class="separator"></span>
         </div>
         <div class="top-line"></div>
-        <p class="body-text">Você coleciona diagnósticos, identifica gatilhos e dá nome aos seus padrões.<br><br>A linguagem está certa. O vocabulário é sofisticado. O entendimento é genuíno.</p>
+        <p class="body-text">A cultura moderna transformou o sono em fraqueza.<br><br>"Durmo 4 horas e funciono bem." "Vou descansar quando morrer." Glorificamos a exaustão como se ela fosse sinônimo de dedicação.</p>
         <div class="highlight-block">
-          <p>"Mas saber o nome da gaiola não abre a porta. Você continua a mesma pessoa, apenas com um vocabulário melhor."</p>
+          <p>"Privação de sono não é sacrifício. É déficit cognitivo acumulado disfarçado de produtividade."</p>
         </div>
       </div>
       <span class="slide-num">02 / 10</span>
@@ -560,13 +556,13 @@
     <div class="slide slide-3">
       <div>
         <div class="slide-label" style="margin-bottom:20px;">
-          <span class="num" style="color:#555;">O Dogma Moderno</span>
+          <span class="num" style="color:#555;">O Que Acontece Enquanto Você Dorme</span>
           <span class="separator"></span>
         </div>
-        <h3>Tratamos o "olhar para dentro" como um rito de cura automática.</h3>
-        <p class="body-text">Acreditamos que a consciência gera transformação. Mas a psicologia comportamental é clara: o <span class="keyword">insight</span> que não gera movimento é apenas acúmulo de informação.<br><br>A introspecção tornou-se uma estética, não uma ferramenta.</p>
+        <h3>Enquanto você dorme, seu cérebro não para — ele faz o trabalho mais importante do dia.</h3>
+        <p class="body-text">O sistema <span class="keyword">glinfático</span> elimina toxinas cerebrais acumuladas. A memória é consolidada. O cortisol é regulado. O tecido muscular se repara. Os hormônios são reequilibrados.<br><br>O sono não é pausa. É o processo que torna o resto possível.</p>
       </div>
-      <div class="bottom-label">Continua →</div>
+      <div class="bottom-label">A ciência é clara →</div>
       <span class="slide-num">03 / 10</span>
     </div>
 
@@ -574,22 +570,22 @@
     <div class="slide slide-4">
       <div>
         <div class="slide-label" style="margin-bottom:20px;">
-          <span class="num">O Mecanismo da Estagnação</span>
+          <span class="num">Dois Tipos de Noite</span>
           <span class="separator"></span>
         </div>
-        <h3>Saber <em>por que</em> você reage mal não impede a reação.</h3>
-        <p style="font-size:13px; color:#777; margin-bottom:20px;">É o erro do intelecto sobre a ação.</p>
+        <h3>A diferença não está em quantas horas você ficou na cama.</h3>
+        <p style="font-size:13px; color:#777; margin-bottom:20px;">Está no que seu corpo conseguiu fazer com esse tempo.</p>
         <div class="diagram">
           <div class="diagram-box left">
-            <span class="label">Consciência Estática</span>
-            <span class="value">Eu sei o porquê</span>
-            <span class="desc">Reconhece o padrão. Nomeia. Arquiva. Repete.</span>
+            <span class="label">Sono Insuficiente</span>
+            <span class="value">Menos de 6 horas</span>
+            <span class="desc">Emoções reativas, decisões comprometidas, inflamação elevada, imunidade baixa.</span>
           </div>
           <div class="diagram-arrow">→</div>
           <div class="diagram-box right">
-            <span class="label">Ação Regeneradora</span>
-            <span class="value">Eu escolho diferente</span>
-            <span class="desc">Rompe o padrão. Redireciona. Cria nova rota.</span>
+            <span class="label">Sono Restaurador</span>
+            <span class="value">7 a 9 horas</span>
+            <span class="desc">Regulação emocional, clareza cognitiva, reparação celular, hormônios equilibrados.</span>
           </div>
         </div>
       </div>
@@ -598,11 +594,11 @@
 
     <!-- SLIDE 5 -->
     <div class="slide slide-5">
-      <div class="greek-word">μετάνοια</div>
+      <div class="bg-word">circadiano</div>
       <div>
-        <div class="eyebrow">A Raiz do Conceito</div>
-        <h3>O que a neurociência chama de mudança de rota, a tradição cristã chama de <span style="color:var(--accent-light)">Metanoia</span>.</h3>
-        <p class="body-text">Não é sobre culpa emocional. É sobre uma <span class="accent-word">ruptura na lógica do pensamento</span>.<br><br>É o redirecionamento da vontade — um movimento que começa onde o entendimento termina.</p>
+        <div class="eyebrow">A Raiz do Problema</div>
+        <h3>Seu corpo tem um relógio interno. E você passa o dia todo o ignorando.</h3>
+        <p class="body-text">O ritmo <span class="accent-word">circadiano</span> regula hormônios, temperatura corporal, fome e cognição. Quando você força acordar no escuro ou dorme com telas acesas, contraria milhões de anos de programação biológica.<br><br>O resultado não é só cansaço. É desequilíbrio sistêmico.</p>
       </div>
       <span class="slide-num">05 / 10</span>
     </div>
@@ -611,13 +607,13 @@
     <div class="slide slide-6">
       <div>
         <div class="slide-label" style="margin-bottom:20px;">
-          <span class="num">A Biologia da Mudança</span>
+          <span class="num">O Custo Invisível</span>
           <span class="separator"></span>
         </div>
-        <h3>A verdadeira neuroplasticidade exige escolha.</h3>
-        <p class="body-text">Sem o "voltar-se para o novo", o cérebro apenas reforça as trilhas antigas com justificativas novas. A estrutura permanece. Só o rótulo muda.</p>
+        <h3>O sono insuficiente cobra uma fatura que você não vê chegando.</h3>
+        <p class="body-text">Aumento de cortisol, resistência à insulina, queda de testosterona e imunidade, memória fragmentada, irritabilidade crônica, envelhecimento celular acelerado.</p>
         <div class="callout">
-          <p>"Autoconhecimento sem entrega é apenas uma armadura para o ego."</p>
+          <p>"Você não está produzindo mais. Está usando sua reserva mais rápido do que consegue repor."</p>
         </div>
       </div>
       <span class="slide-num">06 / 10</span>
@@ -625,19 +621,19 @@
 
     <!-- SLIDE 7 -->
     <div class="slide slide-7">
-      <div class="eyebrow">A Grande Armadilha</div>
-      <p class="body-text">Se o que você sabe sobre si serve para justificar seus erros — "eu sou assim por causa de X" — você não está se curando.<br><br>Você está se blindando.</p>
-      <p class="central-quote">"A explicação não substitui a transformação."</p>
+      <div class="eyebrow">A Grande Ilusão</div>
+      <p class="body-text">Muita gente acredita que pode "recuperar" o sono perdido no fim de semana. A ciência mostra que o dano cognitivo e metabólico acumulado durante a semana não é completamente revertido por dois dias de sono compensatório.</p>
+      <p class="central-quote">"Você pode pagar a dívida de sono. Mas os juros ficam para sempre."</p>
       <span class="slide-num">07 / 10</span>
     </div>
 
     <!-- SLIDE 8 -->
     <div class="slide slide-8">
       <div>
-        <div class="eyebrow">O Encontro Real</div>
-        <h3>Expor a ferida é o primeiro passo, mas a cicatrização acontece no altar da prática e da fé.</h3>
+        <div class="eyebrow">O Descanso como Disciplina</div>
+        <h3>Dormir bem não é fraqueza. É o ato mais estratégico que você pode praticar todos os dias.</h3>
         <div class="divider"></div>
-        <p class="final-quote">"O conhecimento te apresenta a você mesma.<br>Deus te apresenta a quem você pode ser."</p>
+        <p class="final-quote">"O descanso não é o oposto do trabalho.<br>É o que torna o trabalho sustentável — e a vida, possível."</p>
       </div>
       <span class="slide-num">08 / 10</span>
     </div>
@@ -646,18 +642,18 @@
     <div class="slide slide-9">
       <div>
         <div class="teaser-label">Próximo Post</div>
-        <h3>Plasticidade Dependente de Experiência.</h3>
-        <p class="body-text">Vou te mostrar por que o seu cérebro só acredita naquilo que você <span class="bold-word">faz</span>, não no que você <span class="bold-word">pensa</span>.<br><br>Prepare-se para repensar o que você chama de fé.</p>
+        <h3>Higiene do Sono: o protocolo que muda tudo.</h3>
+        <p class="body-text">Vou te mostrar os hábitos noturnos que separam quem acorda <span class="bold-word">restaurada</span> de quem acorda <span class="bold-word">destruída</span>.<br><br>É mais simples do que você pensa — e mais poderoso do que qualquer suplemento.</p>
       </div>
       <span class="slide-num">09 / 10</span>
     </div>
 
     <!-- SLIDE 10 -->
     <div class="slide slide-10">
-      <p class="top-text">Menos análise, mais obediência ao processo.</p>
-      <p class="cta-main">"Você tem usado o que sabe sobre si para mudar ou para se perdoar sem mudar?"</p>
+      <p class="top-text">Dormir bem é uma decisão que você pode tomar hoje à noite.</p>
+      <p class="cta-main">"Você protege seu sono da mesma forma que protege seu tempo de trabalho?"</p>
       <div class="question-box">
-        <p>Salva este post. Compartilha com quem precisa ouvir isso. E me conta nos comentários: qual é a sua resposta honesta?</p>
+        <p>Comenta aqui: quantas horas você realmente dorme por noite? Salva esse carrossel e compartilha com alguém que ainda acha que dormir pouco é virtude.</p>
       </div>
       <div class="handle">@alineataide</div>
       <span class="slide-num">10 / 10</span>
