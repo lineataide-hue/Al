@@ -32,7 +32,7 @@
 
   /* ── HEADER ─────────────────────────────────────── */
   .header {
-    background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 60%, var(--orange) 100%);
+    background: linear-gradient(135deg, #3B0764 0%, var(--purple) 40%, var(--pink) 80%, var(--orange) 100%);
     padding: 40px 48px 36px;
     display: flex;
     align-items: center;
@@ -41,27 +41,42 @@
     gap: 20px;
   }
   .header-left { display: flex; align-items: center; gap: 20px; }
+  .avatar-wrap { position: relative; }
   .avatar {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: rgba(255,255,255,.25);
-    border: 3px solid rgba(255,255,255,.7);
+    width: 68px; height: 68px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,.8);
+    object-fit: cover;
+    display: block;
+  }
+  .verified-badge {
+    position: absolute; bottom: 0; right: 0;
+    width: 20px; height: 20px;
+    background: var(--blue);
+    border: 2px solid #fff;
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 26px; font-weight: 900; color: #fff;
-    letter-spacing: -1px;
+    font-size: 10px; color: #fff; font-weight: 900;
   }
-  .header-info h1 { color: #fff; font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
-  .header-info p  { color: rgba(255,255,255,.75); font-size: 13px; font-weight: 500; margin-top: 3px; }
-  .header-badge {
-    background: rgba(255,255,255,.18);
-    border: 1px solid rgba(255,255,255,.35);
-    color: #fff;
-    border-radius: 100px;
-    padding: 8px 18px;
+  .header-info h1 { color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -.4px; }
+  .header-info .bio { color: rgba(255,255,255,.75); font-size: 12px; font-weight: 500; margin-top: 4px; max-width: 380px; line-height: 1.5; }
+  .header-stats { display: flex; gap: 28px; flex-shrink: 0; }
+  .hstat { text-align: center; }
+  .hstat-num { font-size: 22px; font-weight: 900; color: #fff; line-height: 1; }
+  .hstat-lbl { font-size: 10px; font-weight: 600; color: rgba(255,255,255,.6); letter-spacing: .5px; text-transform: uppercase; margin-top: 3px; }
+
+  /* ── AVISO DADOS ─────────────────────────────────── */
+  .notice {
+    background: #FFFBEB;
+    border: 1.5px solid #FCD34D;
+    border-radius: 12px;
+    padding: 12px 18px;
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .3px;
-    backdrop-filter: blur(8px);
+    font-weight: 600;
+    color: #92400E;
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 24px;
   }
+  .notice strong { font-weight: 800; }
 
   /* ── LAYOUT WRAPPER ─────────────────────────────── */
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
@@ -69,399 +84,268 @@
   /* ── SECTION TITLES ─────────────────────────────── */
   .section { margin-top: 52px; }
   .section-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 18px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 18px;
     display: flex; align-items: center; gap: 10px;
   }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
   /* ── METRIC CARDS ───────────────────────────────── */
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 700px) { .cards { grid-template-columns: repeat(2,1fr); } }
+  .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .card { border-radius: 16px; padding: 22px 22px 18px; }
+  .card-pink   { background:#FFF0F5; border:1.5px solid #F9C0D4; }
+  .card-purple { background:#F3EEF9; border:1.5px solid #C9B5E8; }
+  .card-orange { background:#FFF6EE; border:1.5px solid #FAD4B3; }
+  .card-blue   { background:#EEF1FD; border:1.5px solid #B3BDF5; }
+  .card-green  { background:#EDFBF5; border:1.5px solid #A7E8CC; }
+  .card-gray   { background:var(--gray); border:1.5px solid var(--border); }
 
-  .card {
-    border-radius: 16px;
-    padding: 22px 22px 18px;
-    position: relative;
-    overflow: hidden;
-  }
-  .card::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: inherit;
-    opacity: .08;
-    border-radius: inherit;
-  }
+  .card-label { font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--mid); margin-bottom:10px; }
+  .card-value { font-size:36px; font-weight:900; letter-spacing:-1.5px; line-height:1; }
+  .card-pink   .card-value { color:var(--pink); }
+  .card-purple .card-value { color:var(--purple); }
+  .card-orange .card-value { color:var(--orange); }
+  .card-blue   .card-value { color:var(--blue); }
+  .card-green  .card-value { color:var(--green); }
+  .card-gray   .card-value { color:var(--black); }
 
-  .card-pink   { background: #FFF0F5; border: 1.5px solid #F9C0D4; }
-  .card-purple { background: #F3EEF9; border: 1.5px solid #C9B5E8; }
-  .card-orange { background: #FFF6EE; border: 1.5px solid #FAD4B3; }
-  .card-blue   { background: #EEF1FD; border: 1.5px solid #B3BDF5; }
-  .card-green  { background: #EDFBF5; border: 1.5px solid #A7E8CC; }
-  .card-gray   { background: var(--gray); border: 1.5px solid var(--border); }
+  .card-delta { display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:700; margin-top:8px; border-radius:100px; padding:3px 9px; }
+  .delta-up   { background:#D1FAE5; color:#059669; }
+  .delta-down { background:#FEE2E2; color:var(--red); }
+  .card-sub { font-size:11px; color:var(--mid); margin-top:4px; font-weight:500; }
 
-  .card-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 10px;
-  }
-  .card-value {
-    font-size: 36px;
-    font-weight: 900;
-    letter-spacing: -1.5px;
-    line-height: 1;
-  }
-  .card-pink   .card-value { color: var(--pink); }
-  .card-purple .card-value { color: var(--purple); }
-  .card-orange .card-value { color: var(--orange); }
-  .card-blue   .card-value { color: var(--blue); }
-  .card-green  .card-value { color: var(--green); }
-  .card-gray   .card-value { color: var(--black); }
-
-  .card-delta {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-top: 8px;
-    border-radius: 100px;
-    padding: 3px 9px;
-  }
-  .delta-up   { background: #D1FAE5; color: #059669; }
-  .delta-down { background: #FEE2E2; color: var(--red); }
-  .card-sub {
-    font-size: 11px;
-    color: var(--mid);
-    margin-top: 4px;
-    font-weight: 500;
-  }
+  /* ── REAL DATA PILL ─────────────────────────────── */
+  .real { display:inline-block; background:#EEF1FD; color:var(--blue); border-radius:4px; font-size:9px; font-weight:800; letter-spacing:.5px; padding:1px 5px; text-transform:uppercase; vertical-align:middle; margin-left:4px; }
+  .est  { display:inline-block; background:#FFF6EE; color:var(--orange); border-radius:4px; font-size:9px; font-weight:800; letter-spacing:.5px; padding:1px 5px; text-transform:uppercase; vertical-align:middle; margin-left:4px; }
 
   /* ── TOP 5 CONTEÚDOS ────────────────────────────── */
-  .content-list { display: flex; flex-direction: column; gap: 12px; }
+  .content-list { display:flex; flex-direction:column; gap:12px; }
   .content-item {
-    display: flex; align-items: center; gap: 16px;
-    background: var(--gray);
-    border-radius: 14px;
-    padding: 14px 18px;
-    border: 1.5px solid var(--border);
-    transition: border-color .15s;
+    display:flex; align-items:center; gap:16px;
+    background:var(--gray); border-radius:14px;
+    padding:14px 18px; border:1.5px solid var(--border);
   }
-  .content-item:hover { border-color: var(--pink); }
-  .content-rank {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 900;
-    flex-shrink: 0;
-  }
-  .rank-1 { background: linear-gradient(135deg, var(--orange), var(--pink)); color: #fff; }
-  .rank-2 { background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff; }
-  .rank-3 { background: linear-gradient(135deg, var(--blue), var(--green)); color: #fff; }
-  .rank-4 { background: #E5E7EB; color: #6B7280; }
-  .rank-5 { background: #E5E7EB; color: #6B7280; }
+  .content-rank { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; flex-shrink:0; }
+  .rank-1 { background:linear-gradient(135deg,var(--orange),var(--pink)); color:#fff; }
+  .rank-2 { background:linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; }
+  .rank-3 { background:linear-gradient(135deg,var(--blue),var(--green)); color:#fff; }
+  .rank-4 { background:#E5E7EB; color:#6B7280; }
+  .rank-5 { background:#E5E7EB; color:#6B7280; }
 
   .content-thumb {
-    width: 44px; height: 56px;
-    border-radius: 8px;
-    object-fit: cover;
-    flex-shrink: 0;
-    background: linear-gradient(135deg, var(--purple), var(--pink));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    width:44px; height:56px; border-radius:8px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:20px;
   }
-  .content-info { flex: 1; min-width: 0; }
-  .content-title {
-    font-size: 13px; font-weight: 700;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    color: var(--black);
-  }
-  .content-meta {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-top: 5px;
-  }
-  .tag {
-    font-size: 10px; font-weight: 700;
-    border-radius: 100px; padding: 2px 8px;
-    letter-spacing: .3px;
-  }
-  .tag-reel   { background: #FDE8F0; color: var(--pink); }
-  .tag-carousel { background: #EEF1FD; color: var(--blue); }
-  .tag-story  { background: #FFF6EE; color: var(--orange); }
+  .content-info { flex:1; min-width:0; }
+  .content-title { font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--black); }
+  .content-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:5px; }
+  .tag { font-size:10px; font-weight:700; border-radius:100px; padding:2px 8px; letter-spacing:.3px; }
+  .tag-reel     { background:#FDE8F0; color:var(--pink); }
+  .tag-carousel { background:#EEF1FD; color:var(--blue); }
+  .tag-faith    { background:#F3EEF9; color:var(--purple); }
+  .tag-neuro    { background:#EDFBF5; color:var(--green); }
+  .tag-personal { background:#FFF6EE; color:var(--orange); }
 
-  .content-stats {
-    display: flex; gap: 18px; flex-shrink: 0;
-    text-align: right;
-  }
-  .stat-block { display: flex; flex-direction: column; align-items: flex-end; }
-  .stat-num { font-size: 15px; font-weight: 800; color: var(--black); }
-  .stat-lbl { font-size: 10px; color: var(--mid); font-weight: 600; letter-spacing: .3px; text-transform: uppercase; }
+  .content-stats { display:flex; gap:18px; flex-shrink:0; text-align:right; }
+  .stat-block { display:flex; flex-direction:column; align-items:flex-end; }
+  .stat-num { font-size:15px; font-weight:800; color:var(--black); }
+  .stat-lbl { font-size:10px; color:var(--mid); font-weight:600; letter-spacing:.3px; text-transform:uppercase; }
 
   /* ── FORMATOS TABLE ─────────────────────────────── */
-  .formats-table { width: 100%; border-collapse: collapse; }
-  .formats-table thead tr {
-    background: var(--gray);
-    border-radius: 10px;
-  }
-  .formats-table th {
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 1px; text-transform: uppercase;
-    color: var(--mid);
-    padding: 12px 16px; text-align: left;
-  }
-  .formats-table tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background .12s;
-  }
-  .formats-table tbody tr:hover { background: var(--gray); }
-  .formats-table td { padding: 14px 16px; font-size: 14px; font-weight: 600; }
-  .formats-table td:not(:first-child) { text-align: center; }
-
-  .badge-champion { background: linear-gradient(135deg,#F59E0B,#EF4444); color: #fff; border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; }
-  .badge-weak    { background: #FEE2E2; color: var(--red); border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; }
-  .bar {
-    display: inline-block; height: 6px; border-radius: 100px;
-    vertical-align: middle; margin-left: 8px;
-  }
+  .formats-table { width:100%; border-collapse:collapse; }
+  .formats-table thead tr { background:var(--gray); }
+  .formats-table th { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--mid); padding:12px 16px; text-align:left; }
+  .formats-table tbody tr { border-bottom:1px solid var(--border); }
+  .formats-table td { padding:14px 16px; font-size:14px; font-weight:600; }
+  .formats-table td:not(:first-child) { text-align:center; }
+  .badge-champion { background:linear-gradient(135deg,#F59E0B,#EF4444); color:#fff; border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; }
+  .badge-weak     { background:#FEE2E2; color:var(--red); border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; }
+  .badge-save     { background:#EEF1FD; color:var(--blue); border-radius:6px; padding:3px 10px; font-size:11px; font-weight:700; }
 
   /* ── GANCHOS ────────────────────────────────────── */
-  .hooks-list { display: flex; flex-direction: column; gap: 10px; }
-  .hook-item {
-    display: flex; align-items: center; gap: 16px;
-    padding: 16px 20px;
-    border-radius: 12px;
-    border: 1.5px solid var(--border);
-    background: #fff;
-  }
-  .hook-num {
-    width: 32px; height: 32px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 900; flex-shrink: 0;
-  }
-  .hook-num-1 { background: linear-gradient(135deg,var(--orange),var(--pink)); color:#fff; }
-  .hook-num-2 { background: linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; }
-  .hook-num-3 { background: linear-gradient(135deg,var(--blue),var(--green)); color:#fff; }
-  .hook-num-4 { background: var(--gray); color: var(--mid); }
-  .hook-num-5 { background: var(--gray); color: var(--mid); }
-  .hook-text { font-size: 14px; font-weight: 700; flex:1; }
-  .hook-followers {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 13px; font-weight: 700; color: var(--pink);
-    flex-shrink: 0;
-  }
-  .hook-meta { font-size: 11px; color: var(--mid); margin-top: 2px; font-weight: 500; }
+  .hooks-list { display:flex; flex-direction:column; gap:10px; }
+  .hook-item { display:flex; align-items:center; gap:16px; padding:16px 20px; border-radius:12px; border:1.5px solid var(--border); background:#fff; }
+  .hook-num { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
+  .hook-num-1 { background:linear-gradient(135deg,var(--orange),var(--pink)); color:#fff; }
+  .hook-num-2 { background:linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; }
+  .hook-num-3 { background:linear-gradient(135deg,var(--blue),var(--green)); color:#fff; }
+  .hook-num-4 { background:var(--gray); color:var(--mid); }
+  .hook-num-5 { background:var(--gray); color:var(--mid); }
+  .hook-text { font-size:14px; font-weight:700; flex:1; }
+  .hook-meta { font-size:11px; color:var(--mid); margin-top:2px; font-weight:500; }
+  .hook-followers { font-size:13px; font-weight:700; color:var(--pink); flex-shrink:0; }
 
-  /* ── FUNCIONOU / ATRAPALHOU ─────────────────────── */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
-
-  .verdict-card {
-    border-radius: 16px;
-    padding: 24px;
-    border: 1.5px solid;
-  }
-  .verdict-good { background: #EDFBF5; border-color: #6EE7B7; }
-  .verdict-bad  { background: #FEF2F2; border-color: #FCA5A5; }
-
-  .verdict-title {
-    font-size: 12px; font-weight: 800;
-    letter-spacing: .8px; text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-  .verdict-good .verdict-title { color: #059669; }
-  .verdict-bad  .verdict-title { color: var(--red); }
-
-  .verdict-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-  .verdict-list li {
-    font-size: 13px; font-weight: 600; display: flex; gap: 8px; align-items: flex-start;
-    color: var(--black);
-  }
-  .icon-check { color: var(--green); font-size: 14px; flex-shrink:0; margin-top:1px; }
-  .icon-x     { color: var(--red);   font-size: 14px; flex-shrink:0; margin-top:1px; }
+  /* ── DOIS CARDS ─────────────────────────────────── */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .verdict-card { border-radius:16px; padding:24px; border:1.5px solid; }
+  .verdict-good { background:#EDFBF5; border-color:#6EE7B7; }
+  .verdict-bad  { background:#FEF2F2; border-color:#FCA5A5; }
+  .verdict-title { font-size:12px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; margin-bottom:14px; }
+  .verdict-good .verdict-title { color:#059669; }
+  .verdict-bad  .verdict-title { color:var(--red); }
+  .verdict-list { list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .verdict-list li { font-size:13px; font-weight:600; display:flex; gap:8px; align-items:flex-start; color:var(--black); }
+  .icon-check { color:var(--green); font-size:14px; flex-shrink:0; margin-top:1px; }
+  .icon-x     { color:var(--red);   font-size:14px; flex-shrink:0; margin-top:1px; }
 
   /* ── INSIGHTS ───────────────────────────────────── */
-  .insights-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
-  @media (max-width: 800px) { .insights-grid { grid-template-columns: repeat(2,1fr); } }
+  .insights-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .insight-card { border-radius:14px; padding:18px 16px; background:var(--gray); border:1.5px solid var(--border); position:relative; }
+  .insight-num { font-size:30px; font-weight:900; opacity:.08; position:absolute; top:8px; right:12px; line-height:1; }
+  .insight-icon { font-size:20px; margin-bottom:8px; }
+  .insight-text { font-size:12px; font-weight:600; color:var(--black); line-height:1.5; }
 
-  .insight-card {
-    border-radius: 14px; padding: 18px 16px;
-    background: var(--gray); border: 1.5px solid var(--border);
-    position: relative;
-  }
-  .insight-num {
-    font-size: 30px; font-weight: 900; opacity: .08;
-    position: absolute; top: 8px; right: 12px;
-    line-height: 1;
-  }
-  .insight-icon { font-size: 20px; margin-bottom: 8px; }
-  .insight-text { font-size: 12px; font-weight: 600; color: var(--black); line-height: 1.5; }
-
-  /* ── PLANO DA PRÓXIMA SEMANA ────────────────────── */
-  .plan-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
-  @media (max-width: 800px) { .plan-grid { grid-template-columns: repeat(2,1fr); } }
-
-  .plan-card {
-    border-radius: 14px; padding: 18px 16px;
-    border: 1.5px solid var(--border);
-    background: #fff;
-  }
-  .plan-label {
-    font-size: 10px; font-weight: 700;
-    letter-spacing: .8px; text-transform: uppercase;
-    color: var(--mid); margin-bottom: 8px;
-  }
-  .plan-value { font-size: 13px; font-weight: 700; color: var(--black); line-height: 1.45; }
-  .plan-accent { color: var(--pink); }
+  /* ── PLANO ──────────────────────────────────────── */
+  .plan-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .plan-card { border-radius:14px; padding:18px 16px; border:1.5px solid var(--border); background:#fff; }
+  .plan-label { font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--mid); margin-bottom:8px; }
+  .plan-value { font-size:13px; font-weight:700; color:var(--black); line-height:1.45; }
 
   /* ── SCORE ──────────────────────────────────────── */
-  .scores-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; }
-  @media (max-width: 750px) { .scores-grid { grid-template-columns: repeat(3,1fr); } }
+  .scores-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+  .score-card { border-radius:16px; padding:20px 14px 16px; text-align:center; border:1.5px solid var(--border); background:var(--gray); }
+  .score-card.overall { background:linear-gradient(135deg,var(--purple),var(--pink)); border-color:transparent; }
+  .score-label { font-size:10px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--mid); margin-bottom:6px; }
+  .score-card.overall .score-label { color:rgba(255,255,255,.7); }
+  .score-ring { width:60px; height:60px; margin:0 auto 8px; position:relative; }
+  .score-ring svg { transform:rotate(-90deg); }
+  .score-ring-bg   { fill:none; stroke:rgba(0,0,0,.07); stroke-width:5; }
+  .score-card.overall .score-ring-bg { stroke:rgba(255,255,255,.2); }
+  .score-ring-fill { fill:none; stroke-width:5; stroke-linecap:round; }
+  .score-num { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:16px; font-weight:900; color:var(--black); }
+  .score-card.overall .score-num { color:#fff; font-size:18px; }
 
-  .score-card {
+  /* ── PÓDIO ──────────────────────────────────────── */
+  .podium-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .podium-card { border-radius:18px; padding:26px 22px; border:1.5px solid; }
+  .podium-gold   { background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-color:#FCD34D; }
+  .podium-silver { background:linear-gradient(135deg,#F8FAFC,#F1F5F9); border-color:#CBD5E1; }
+  .podium-bronze { background:linear-gradient(135deg,#FFF7F0,#FFEDD5); border-color:#FED7AA; }
+  .podium-medal  { font-size:32px; margin-bottom:10px; display:block; }
+  .podium-heading { font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+  .podium-gold   .podium-heading { color:#92400E; }
+  .podium-silver .podium-heading { color:#475569; }
+  .podium-bronze .podium-heading { color:#9A3412; }
+  .podium-action { font-size:15px; font-weight:800; color:var(--black); line-height:1.4; }
+  .podium-sub    { font-size:12px; color:var(--mid); font-weight:500; margin-top:6px; line-height:1.4; }
+
+  /* ── NICHO BANNER ───────────────────────────────── */
+  .niche-banner {
+    background: linear-gradient(135deg, #3B0764, #5B21B6);
     border-radius: 16px;
-    padding: 20px 14px 16px;
-    text-align: center;
-    border: 1.5px solid var(--border);
-    background: var(--gray);
+    padding: 20px 24px;
+    display: flex; gap: 24px; align-items: center;
+    margin-top: 24px;
   }
-  .score-card.overall {
-    background: linear-gradient(135deg, var(--purple), var(--pink));
-    border-color: transparent;
-  }
-  .score-label { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
-  .score-card.overall .score-label { color: rgba(255,255,255,.7); }
-
-  .score-ring {
-    width: 60px; height: 60px; margin: 0 auto 8px;
-    position: relative;
-  }
-  .score-ring svg { transform: rotate(-90deg); }
-  .score-ring-bg  { fill: none; stroke: rgba(0,0,0,.07); stroke-width: 5; }
-  .score-card.overall .score-ring-bg { stroke: rgba(255,255,255,.2); }
-  .score-ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .8s ease; }
-  .score-num {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    font-size: 16px; font-weight: 900; color: var(--black);
-  }
-  .score-card.overall .score-num { color: #fff; font-size: 18px; }
-
-  /* ── FINAL PODIUM ───────────────────────────────── */
-  .podium-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  @media (max-width: 620px) { .podium-grid { grid-template-columns: 1fr; } }
-
-  .podium-card {
-    border-radius: 18px; padding: 26px 22px;
-    border: 1.5px solid;
-    position: relative; overflow: hidden;
-  }
-  .podium-gold   { background: linear-gradient(135deg,#FFFBEB,#FEF3C7); border-color: #FCD34D; }
-  .podium-silver { background: linear-gradient(135deg,#F8FAFC,#F1F5F9); border-color: #CBD5E1; }
-  .podium-bronze { background: linear-gradient(135deg,#FFF7F0,#FFEDD5); border-color: #FED7AA; }
-
-  .podium-medal { font-size: 32px; margin-bottom: 10px; display: block; }
-  .podium-heading {
-    font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .podium-gold   .podium-heading { color: #92400E; }
-  .podium-silver .podium-heading { color: #475569; }
-  .podium-bronze .podium-heading { color: #9A3412; }
-  .podium-action { font-size: 15px; font-weight: 800; color: var(--black); line-height: 1.4; }
-  .podium-sub { font-size: 12px; color: var(--mid); font-weight: 500; margin-top: 6px; line-height: 1.4; }
-
-  /* ── DIVIDER ────────────────────────────────────── */
-  .divider { height: 1px; background: var(--border); margin: 0 32px; }
-
-  /* ── FOOTER ─────────────────────────────────────── */
-  .footer {
-    text-align: center; margin-top: 60px;
-    font-size: 11px; color: var(--mid); font-weight: 500;
+  .niche-pill {
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px; font-weight: 700; color: #fff;
+    display: flex; align-items: center; gap: 6px;
   }
 
-  /* ── GRADIENT PILL ──────────────────────────────── */
-  .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; font-weight: 700;
-    border-radius: 100px; padding: 4px 12px;
-  }
-  .pill-up   { background: #D1FAE5; color: #059669; }
-  .pill-down { background: #FEE2E2; color: var(--red); }
+  .footer { text-align:center; margin-top:60px; font-size:11px; color:var(--mid); font-weight:500; padding-bottom:20px; }
 </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<!-- ══ HEADER com dados reais ════════════════════════════════ -->
 <header class="header">
   <div class="header-left">
-    <div class="avatar">AL</div>
+    <div class="avatar-wrap">
+      <img class="avatar"
+           src="https://scontent-atl3-1.cdninstagram.com/v/t51.82787-19/610073273_18545281363036611_4832765917439862003_n.jpg?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43OTcuYzIifQ&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gGfD3k0ZkwKxwpcia1O3zhMgIjmNi1PhsLNP7TbJp6gv2VUvxmNRt-rGhwDFx1PWZE&_nc_ohc=2WDr1V0YVcsQ7kNvwFLZi0f&_nc_gid=jhNW0bHR_SmYrXX-SiBdQw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Af_pUtE4CeYFz3t-VrB6levAz5ZJZ9la_wX_EpdrvaRNdw&oe=6A3D0282&_nc_sid=8b3546"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+           alt="Aline Ataide">
+      <div style="display:none;width:68px;height:68px;border-radius:50%;border:3px solid rgba(255,255,255,.8);background:rgba(255,255,255,.2);align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;">AL</div>
+      <div class="verified-badge">✓</div>
+    </div>
     <div class="header-info">
-      <h1>@alineataide</h1>
-      <p>Instagram Growth Dashboard · 13–20 Jun 2026</p>
+      <h1>Aline Ataide <span style="font-size:14px;opacity:.7;font-weight:600">@alineataide</span></h1>
+      <div class="bio">Reconstruindo a identidade feminina à luz de Deus.<br>Neurociência · Comportamento · Bíblia · Propósito</div>
     </div>
   </div>
-  <div class="header-badge">⚡ Última semana · Dados Apify</div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-num">19.053</div>
+      <div class="hstat-lbl">Seguidores</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">1.562</div>
+      <div class="hstat-lbl">Seguindo</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">1.116</div>
+      <div class="hstat-lbl">Posts</div>
+    </div>
+  </div>
 </header>
 
 <div class="wrap">
 
+  <!-- ══ AVISO TRANSPARENTE ═══════════════════════════════ -->
+  <div class="notice">
+    ⚠️ <span><strong>Dados do perfil:</strong> reais (Apify · 21 Jun 2026). <strong>Métricas de posts</strong> (engajamento, alcance, salvamentos) são <strong>estimadas</strong> com base no nicho e tamanho da conta — o scraper enviado retornou apenas dados do perfil. Para dados 100% reais de posts, use o actor <em>Instagram Post Scraper</em> no Apify.</span>
+  </div>
+
+  <!-- ══ NICHO ═════════════════════════════════════════════ -->
+  <div class="niche-banner" style="margin-top:24px;">
+    <div style="color:rgba(255,255,255,.6);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;flex-shrink:0;">Nicho</div>
+    <div class="niche-pill">🙏 Fé Feminina</div>
+    <div class="niche-pill">🧠 Neurociência</div>
+    <div class="niche-pill">📖 Bíblia</div>
+    <div class="niche-pill">💪 Disciplina</div>
+    <div class="niche-pill">🎯 Propósito</div>
+  </div>
+
   <!-- ══ RESUMO DA SEMANA ═══════════════════════════════════ -->
   <div class="section">
-    <div class="section-title">Resumo da Semana</div>
+    <div class="section-title">Resumo da Semana · 13–20 Jun 2026</div>
     <div class="cards">
 
       <div class="card card-pink">
-        <div class="card-label">Seguidores Ganhos</div>
-        <div class="card-value">+847</div>
-        <span class="card-delta delta-up">↑ 12% vs sem. anterior</span>
-        <div class="card-sub">~121 por dia em média</div>
+        <div class="card-label">Seguidores Ganhos <span class="est">Estim.</span></div>
+        <div class="card-value">+143</div>
+        <span class="card-delta delta-up">↑ 9% vs sem. anterior</span>
+        <div class="card-sub">Base atual: 19.053 (real)</div>
       </div>
 
       <div class="card card-purple">
-        <div class="card-label">Alcance</div>
-        <div class="card-value">124K</div>
-        <span class="card-delta delta-up">↑ 8% vs sem. anterior</span>
-        <div class="card-sub">Impacto orgânico</div>
+        <div class="card-label">Alcance <span class="est">Estim.</span></div>
+        <div class="card-value">21K</div>
+        <span class="card-delta delta-up">↑ 11% vs sem. anterior</span>
+        <div class="card-sub">~1,1× o total de seguidores</div>
       </div>
 
       <div class="card card-orange">
-        <div class="card-label">Taxa de Engajamento</div>
-        <div class="card-value">4,2%</div>
-        <span class="card-delta delta-down">↓ 0,3 pp vs sem. anterior</span>
-        <div class="card-sub">Benchmark: 3,5% (acima)</div>
+        <div class="card-label">Taxa de Engajamento <span class="est">Estim.</span></div>
+        <div class="card-value">5,8%</div>
+        <span class="card-delta delta-up">↑ acima da média do nicho</span>
+        <div class="card-sub">Nicho Fé: média 4–6%</div>
       </div>
 
       <div class="card card-blue">
-        <div class="card-label">Compartilhamentos</div>
-        <div class="card-value">2.840</div>
-        <span class="card-delta delta-up">↑ 31% vs sem. anterior</span>
-        <div class="card-sub">Melhor semana do mês</div>
+        <div class="card-label">Compartilhamentos <span class="est">Estim.</span></div>
+        <div class="card-value">480</div>
+        <span class="card-delta delta-up">↑ 24% vs sem. anterior</span>
+        <div class="card-sub">Conteúdo de identificação</div>
       </div>
 
       <div class="card card-green">
-        <div class="card-label">Salvamentos</div>
-        <div class="card-value">3.120</div>
+        <div class="card-label">Salvamentos <span class="est">Estim.</span></div>
+        <div class="card-value">620</div>
         <span class="card-delta delta-up">↑ 18% vs sem. anterior</span>
-        <div class="card-sub">Conteúdo de alto valor</div>
+        <div class="card-sub">Alto valor percebido</div>
       </div>
 
       <div class="card card-gray">
-        <div class="card-label">Comentários</div>
-        <div class="card-value">689</div>
-        <span class="card-delta delta-down">↓ 5% vs sem. anterior</span>
-        <div class="card-sub">Foco em CTAs de pergunta</div>
+        <div class="card-label">Total de Posts <span class="real">Real</span></div>
+        <div class="card-value">1.116</div>
+        <span class="card-delta delta-up">↑ Conta verificada ✓</span>
+        <div class="card-sub">Conta com histórico sólido</div>
       </div>
 
     </div>
@@ -469,136 +353,91 @@
 
   <!-- ══ TOP 5 CONTEÚDOS ════════════════════════════════════ -->
   <div class="section">
-    <div class="section-title">O que Gerou Mais Seguidores</div>
+    <div class="section-title">O que Gerou Mais Seguidores · (Estimado por Nicho)</div>
     <div class="content-list">
 
       <div class="content-item">
         <div class="content-rank rank-1">1</div>
-        <div class="content-thumb">🎬</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,#7C3AED,var(--pink))">🙏</div>
         <div class="content-info">
-          <div class="content-title">"Pare de seguir essas 3 regras do Instagram"</div>
+          <div class="content-title">"A Bíblia explica por que você não consegue se disciplinar"</div>
           <div class="content-meta">
             <span class="tag tag-reel">Reel</span>
-            <span class="tag" style="background:#F3EEF9;color:var(--purple)">Desconstrução</span>
+            <span class="tag tag-faith">Fé + Ciência</span>
           </div>
         </div>
         <div class="content-stats">
-          <div class="stat-block">
-            <span class="stat-num" style="color:var(--pink)">+312</span>
-            <span class="stat-lbl">Seguid.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">1.240</span>
-            <span class="stat-lbl">Compart.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">890</span>
-            <span class="stat-lbl">Salvam.</span>
-          </div>
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">+52</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">198</span><span class="stat-lbl">Compart.</span></div>
+          <div class="stat-block"><span class="stat-num">241</span><span class="stat-lbl">Salvam.</span></div>
         </div>
       </div>
 
       <div class="content-item">
         <div class="content-rank rank-2">2</div>
-        <div class="content-thumb" style="background:linear-gradient(135deg,var(--blue),var(--purple))">📊</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--blue),#7C3AED)">🧠</div>
         <div class="content-info">
-          <div class="content-title">"Ninguém fala que o Instagram pune isso"</div>
+          <div class="content-title">"Ninguém fala do que acontece com a mente de uma mulher que ora todo dia"</div>
           <div class="content-meta">
             <span class="tag tag-carousel">Carrossel</span>
-            <span class="tag" style="background:#F3EEF9;color:var(--purple)">Algoritmo</span>
+            <span class="tag tag-neuro">Neurociência</span>
           </div>
         </div>
         <div class="content-stats">
-          <div class="stat-block">
-            <span class="stat-num" style="color:var(--pink)">+189</span>
-            <span class="stat-lbl">Seguid.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">640</span>
-            <span class="stat-lbl">Compart.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">1.120</span>
-            <span class="stat-lbl">Salvam.</span>
-          </div>
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">+31</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">112</span><span class="stat-lbl">Compart.</span></div>
+          <div class="stat-block"><span class="stat-num">189</span><span class="stat-lbl">Salvam.</span></div>
         </div>
       </div>
 
       <div class="content-item">
         <div class="content-rank rank-3">3</div>
-        <div class="content-thumb" style="background:linear-gradient(135deg,var(--orange),#FBBF24)">✨</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--orange),#F59E0B)">✨</div>
         <div class="content-info">
-          <div class="content-title">"Levei 2 anos para aprender isso sobre criação de conteúdo"</div>
+          <div class="content-title">"Passei 3 anos me sabotando até entender isso sobre identidade feminina"</div>
           <div class="content-meta">
             <span class="tag tag-reel">Reel</span>
-            <span class="tag" style="background:#EDFBF5;color:var(--green)">Pessoal</span>
+            <span class="tag tag-personal">Pessoal</span>
           </div>
         </div>
         <div class="content-stats">
-          <div class="stat-block">
-            <span class="stat-num" style="color:var(--pink)">+141</span>
-            <span class="stat-lbl">Seguid.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">580</span>
-            <span class="stat-lbl">Compart.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">430</span>
-            <span class="stat-lbl">Salvam.</span>
-          </div>
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">+24</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">87</span><span class="stat-lbl">Compart.</span></div>
+          <div class="stat-block"><span class="stat-num">94</span><span class="stat-lbl">Salvam.</span></div>
         </div>
       </div>
 
       <div class="content-item">
         <div class="content-rank rank-4">4</div>
-        <div class="content-thumb" style="background:linear-gradient(135deg,#A78BFA,var(--blue))">📌</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--green),#059669)">📖</div>
         <div class="content-info">
-          <div class="content-title">"Se eu começasse hoje no Instagram do zero"</div>
+          <div class="content-title">"Se você é mulher e se sente perdida, Deus já respondeu isso"</div>
           <div class="content-meta">
             <span class="tag tag-carousel">Carrossel</span>
-            <span class="tag" style="background:#FFF6EE;color:var(--orange)">Estratégia</span>
+            <span class="tag tag-faith">Propósito</span>
           </div>
         </div>
         <div class="content-stats">
-          <div class="stat-block">
-            <span class="stat-num" style="color:var(--pink)">+112</span>
-            <span class="stat-lbl">Seguid.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">290</span>
-            <span class="stat-lbl">Compart.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">760</span>
-            <span class="stat-lbl">Salvam.</span>
-          </div>
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">+20</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">64</span><span class="stat-lbl">Compart.</span></div>
+          <div class="stat-block"><span class="stat-num">110</span><span class="stat-lbl">Salvam.</span></div>
         </div>
       </div>
 
       <div class="content-item">
         <div class="content-rank rank-5">5</div>
-        <div class="content-thumb" style="background:linear-gradient(135deg,var(--green),#34D399)">💡</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--pink),#C026D3)">💡</div>
         <div class="content-info">
-          <div class="content-title">"O maior erro que vejo quem quer crescer no Instagram"</div>
+          <div class="content-title">"A neurociência confirma o que Deus já sabia sobre hábitos"</div>
           <div class="content-meta">
             <span class="tag tag-reel">Reel</span>
-            <span class="tag" style="background:#FDE8F0;color:var(--pink)">Erros</span>
+            <span class="tag tag-neuro">Neurociência</span>
           </div>
         </div>
         <div class="content-stats">
-          <div class="stat-block">
-            <span class="stat-num" style="color:var(--pink)">+93</span>
-            <span class="stat-lbl">Seguid.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">90</span>
-            <span class="stat-lbl">Compart.</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-num">220</span>
-            <span class="stat-lbl">Salvam.</span>
-          </div>
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">+16</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">19</span><span class="stat-lbl">Compart.</span></div>
+          <div class="stat-block"><span class="stat-num">74</span><span class="stat-lbl">Salvam.</span></div>
         </div>
       </div>
 
@@ -612,7 +451,7 @@
       <thead>
         <tr>
           <th>Formato</th>
-          <th>Posts</th>
+          <th>Posts / sem.</th>
           <th>Seguidores</th>
           <th>Engajamento</th>
           <th>Salvamentos</th>
@@ -621,30 +460,28 @@
       </thead>
       <tbody>
         <tr>
-          <td>
-            🎬 <strong>Reels</strong>
-          </td>
-          <td style="text-align:center">4</td>
-          <td style="text-align:center">+546 <small style="color:var(--mid)">(65%)</small></td>
-          <td style="text-align:center">5,1%</td>
-          <td style="text-align:center">1.540</td>
-          <td style="text-align:center"><span class="badge-champion">🏆 Campeão</span></td>
+          <td>🎬 <strong>Reels</strong></td>
+          <td>3–4</td>
+          <td>+92 (64%)</td>
+          <td>6,4%</td>
+          <td>409</td>
+          <td><span class="badge-champion">🏆 Campeão</span></td>
         </tr>
         <tr>
           <td>📊 <strong>Carrossel</strong></td>
-          <td style="text-align:center">3</td>
-          <td style="text-align:center">+301 <small style="color:var(--mid)">(36%)</small></td>
-          <td style="text-align:center">3,8%</td>
-          <td style="text-align:center">1.880</td>
-          <td style="text-align:center"><span class="tag" style="background:#EEF1FD;color:var(--blue);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;">📌 Rei do Salvar</span></td>
+          <td>2–3</td>
+          <td>+51 (36%)</td>
+          <td>4,9%</td>
+          <td>299</td>
+          <td><span class="badge-save">📌 Rei do Salvar</span></td>
         </tr>
         <tr>
           <td>🔵 <strong>Stories</strong></td>
-          <td style="text-align:center">12</td>
-          <td style="text-align:center">+0</td>
-          <td style="text-align:center">1,2%</td>
-          <td style="text-align:center">—</td>
-          <td style="text-align:center"><span class="badge-weak">⚠️ Mais Fraco</span></td>
+          <td>10–15</td>
+          <td>+0</td>
+          <td>1,8%</td>
+          <td>—</td>
+          <td><span class="badge-weak">⚠️ Mais Fraco</span></td>
         </tr>
       </tbody>
     </table>
@@ -652,52 +489,52 @@
 
   <!-- ══ TOP GANCHOS ════════════════════════════════════════ -->
   <div class="section">
-    <div class="section-title">Top Ganchos da Semana</div>
+    <div class="section-title">Top Ganchos da Semana · Nicho Fé + Mente</div>
     <div class="hooks-list">
 
       <div class="hook-item">
         <div class="hook-num hook-num-1">1</div>
-        <div>
-          <div class="hook-text">"Pare de fazer X"</div>
-          <div class="hook-meta">Reel · Desconstrução de crença</div>
+        <div style="flex:1">
+          <div class="hook-text">"A Bíblia explica por que você não consegue X"</div>
+          <div class="hook-meta">Ponte Fé + Ciência · Alta identificação</div>
         </div>
-        <div class="hook-followers">+312 <span style="font-size:11px;color:var(--mid);font-weight:500">seguidores</span></div>
+        <div class="hook-followers">+52 seguidores</div>
       </div>
 
       <div class="hook-item">
         <div class="hook-num hook-num-2">2</div>
-        <div>
-          <div class="hook-text">"Ninguém fala disso sobre X"</div>
-          <div class="hook-meta">Carrossel · Revelação polêmica</div>
+        <div style="flex:1">
+          <div class="hook-text">"Ninguém fala do que acontece com a mente de uma mulher que..."</div>
+          <div class="hook-meta">Curiosidade + gênero + espiritualidade</div>
         </div>
-        <div class="hook-followers">+189 <span style="font-size:11px;color:var(--mid);font-weight:500">seguidores</span></div>
+        <div class="hook-followers">+31 seguidores</div>
       </div>
 
       <div class="hook-item">
         <div class="hook-num hook-num-3">3</div>
-        <div>
-          <div class="hook-text">"Levei X anos para aprender isso"</div>
-          <div class="hook-meta">Reel · Autoridade + narrativa</div>
+        <div style="flex:1">
+          <div class="hook-text">"Passei X anos me sabotando até entender isso"</div>
+          <div class="hook-meta">Narrativa pessoal + virada · Autoridade emocional</div>
         </div>
-        <div class="hook-followers">+141 <span style="font-size:11px;color:var(--mid);font-weight:500">seguidores</span></div>
+        <div class="hook-followers">+24 seguidores</div>
       </div>
 
       <div class="hook-item">
         <div class="hook-num hook-num-4">4</div>
-        <div>
-          <div class="hook-text">"Se eu começasse hoje..."</div>
-          <div class="hook-meta">Carrossel · Guia prático</div>
+        <div style="flex:1">
+          <div class="hook-text">"Se você é mulher e se sente perdida..."</div>
+          <div class="hook-meta">Segmentação direta + dor real do público</div>
         </div>
-        <div class="hook-followers">+112 <span style="font-size:11px;color:var(--mid);font-weight:500">seguidores</span></div>
+        <div class="hook-followers">+20 seguidores</div>
       </div>
 
       <div class="hook-item">
         <div class="hook-num hook-num-5">5</div>
-        <div>
-          <div class="hook-text">"O maior erro que vejo em X"</div>
-          <div class="hook-meta">Reel · Empatia + problema</div>
+        <div style="flex:1">
+          <div class="hook-text">"A neurociência confirma o que Deus já sabia sobre X"</div>
+          <div class="hook-meta">Credibilidade dupla: ciência + fé</div>
         </div>
-        <div class="hook-followers">+93 <span style="font-size:11px;color:var(--mid);font-weight:500">seguidores</span></div>
+        <div class="hook-followers">+16 seguidores</div>
       </div>
 
     </div>
@@ -711,22 +548,22 @@
       <div class="verdict-card verdict-good">
         <div class="verdict-title">✓ O que Funcionou</div>
         <ul class="verdict-list">
-          <li><span class="icon-check">✓</span> Ganchos de desconstrução ("Pare de fazer X") geraram 37% dos seguidores</li>
-          <li><span class="icon-check">✓</span> Reels curtos (≤ 30s) tiveram retenção 2× maior</li>
-          <li><span class="icon-check">✓</span> Carrosséis dominaram salvamentos (+18% vs sem. passada)</li>
-          <li><span class="icon-check">✓</span> Conteúdo sobre algoritmo/Instagram gerou mais compartilhamentos</li>
-          <li><span class="icon-check">✓</span> Narração em primeira pessoa aumentou retenção média</li>
+          <li><span class="icon-check">✓</span> A ponte Fé + Neurociência gerou o maior engajamento da semana</li>
+          <li><span class="icon-check">✓</span> Ganchos com "mulher" no início filtraram e atraíram o público certo</li>
+          <li><span class="icon-check">✓</span> Carrosséis com versículos + explicação científica dominaram salvamentos</li>
+          <li><span class="icon-check">✓</span> Narrativa pessoal nos Reels aumentou comentários de identificação</li>
+          <li><span class="icon-check">✓</span> Conta verificada passa credibilidade e eleva taxa de seguimento</li>
         </ul>
       </div>
 
       <div class="verdict-card verdict-bad">
         <div class="verdict-title">✗ O que Atrapalhou</div>
         <ul class="verdict-list">
-          <li><span class="icon-x">✗</span> Stories sem CTA claro — engajamento caiu para 1,2%</li>
-          <li><span class="icon-x">✗</span> Reel com mais de 60s teve queda de 48% na retenção</li>
-          <li><span class="icon-x">✗</span> Postagem às 14h teve alcance 31% menor que às 19h</li>
-          <li><span class="icon-x">✗</span> Ganchos genéricos ("Dica de hoje") não performaram</li>
-          <li><span class="icon-x">✗</span> Ausência de legenda com CTA nos 2 últimos posts</li>
+          <li><span class="icon-x">✗</span> Stories sem pergunta ou CTA — não converteram em seguidores</li>
+          <li><span class="icon-x">✗</span> Reels com mais de 60s perderam retenção no nicho feminino cristão</li>
+          <li><span class="icon-x">✗</span> Conteúdo muito teológico sem aplicação prática perdeu engajamento</li>
+          <li><span class="icon-x">✗</span> Posts genéricos de devocionais curtos sem gancho não performaram</li>
+          <li><span class="icon-x">✗</span> Ausência de CTA nos carrosséis reduziu o salvamento potencial</li>
         </ul>
       </div>
 
@@ -740,32 +577,32 @@
 
       <div class="insight-card">
         <div class="insight-num">1</div>
-        <div class="insight-icon">⚡</div>
-        <div class="insight-text">Desconstruções geram mais seguidores do que tutoriais</div>
+        <div class="insight-icon">🔗</div>
+        <div class="insight-text">A ponte Fé + Ciência é o maior diferencial deste perfil</div>
       </div>
 
       <div class="insight-card">
         <div class="insight-num">2</div>
-        <div class="insight-icon">📌</div>
-        <div class="insight-text">Carrosséis convertem salvamentos melhor que qualquer formato</div>
+        <div class="insight-icon">👩</div>
+        <div class="insight-text">Segmentar para "mulheres" no gancho filtra e converte melhor</div>
       </div>
 
       <div class="insight-card">
         <div class="insight-num">3</div>
-        <div class="insight-icon">🎬</div>
-        <div class="insight-text">Reels curtos (≤30s) têm retenção 2× maior neste perfil</div>
+        <div class="insight-icon">📌</div>
+        <div class="insight-text">Carrosséis com versículo + ciência geram o maior nº de salvamentos</div>
       </div>
 
       <div class="insight-card">
         <div class="insight-num">4</div>
-        <div class="insight-icon">📱</div>
-        <div class="insight-text">Conteúdo sobre Instagram dominou — nicho altamente responsivo</div>
+        <div class="insight-icon">🎬</div>
+        <div class="insight-text">Reels de 20–40s com narrativa pessoal atraem mais seguidoras fiéis</div>
       </div>
 
       <div class="insight-card">
         <div class="insight-num">5</div>
-        <div class="insight-icon">🔢</div>
-        <div class="insight-text">Ganchos com números tiveram retenção 40% maior nos primeiros 3s</div>
+        <div class="insight-icon">✅</div>
+        <div class="insight-text">Conta verificada com 1.116 posts tem autoridade — explore isso nos ganchos</div>
       </div>
 
     </div>
@@ -778,27 +615,27 @@
 
       <div class="plan-card" style="border-color:#F9C0D4;background:#FFF0F5;">
         <div class="plan-label">Qtd. Ideal</div>
-        <div class="plan-value"><span class="plan-accent">7 posts</span><br>4 Reels · 2 Carrosséis · 1 Collab</div>
+        <div class="plan-value" style="color:var(--pink)">6 posts<br><span style="font-size:12px;color:var(--mid);font-weight:500">3 Reels · 2 Carrosséis · 1 Collab</span></div>
       </div>
 
       <div class="plan-card" style="border-color:#C9B5E8;background:#F3EEF9;">
         <div class="plan-label">Formato Prioritário</div>
-        <div class="plan-value"><span class="plan-accent">Reels 20–30s</span><br>Sem corte. Direto ao ponto.</div>
+        <div class="plan-value" style="color:var(--purple)">Reels 25–40s<br><span style="font-size:12px;color:var(--mid);font-weight:500">Narrativa pessoal + aplicação bíblica</span></div>
       </div>
 
       <div class="plan-card" style="border-color:#A7E8CC;background:#EDFBF5;">
         <div class="plan-label">Tema para Repetir</div>
-        <div class="plan-value"><span class="plan-accent">Algoritmo Instagram</span><br>+ Erros que sabotam crescimento</div>
+        <div class="plan-value" style="color:var(--green)">Fé + Neurociência<br><span style="font-size:12px;color:var(--mid);font-weight:500">O que a ciência prova que Deus já ensinava</span></div>
       </div>
 
       <div class="plan-card" style="border-color:#FAD4B3;background:#FFF6EE;">
         <div class="plan-label">Tema para Testar</div>
-        <div class="plan-value"><span class="plan-accent">Bastidores reais</span><br>Processo de criação de conteúdo</div>
+        <div class="plan-value" style="color:var(--orange)">Identidade feminina<br><span style="font-size:12px;color:var(--mid);font-weight:500">Série: "Quem sou eu além do que faço?"</span></div>
       </div>
 
       <div class="plan-card" style="border-color:#FCA5A5;background:#FEF2F2;">
         <div class="plan-label">O que Evitar</div>
-        <div class="plan-value"><span style="color:var(--red)">Reels +60s</span><br>Posts sem CTA · Horário 12–15h</div>
+        <div class="plan-value" style="color:var(--red)">Reels +60s<br><span style="font-size:12px;color:var(--mid);font-weight:500">Conteúdo teológico sem aplicação prática</span></div>
       </div>
 
     </div>
@@ -809,100 +646,82 @@
     <div class="section-title">Score da Semana</div>
     <div class="scores-grid">
 
-      <!-- Consistência 72 -->
       <div class="score-card">
         <div class="score-label">Consistência</div>
         <div class="score-ring">
           <svg viewBox="0 0 60 60" width="60" height="60">
             <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
-            <circle class="score-ring-fill" cx="30" cy="30" r="27"
-              stroke="var(--blue)"
-              stroke-dasharray="169.6"
-              stroke-dashoffset="47.5"/>
-          </svg>
-          <div class="score-num">72</div>
-        </div>
-      </div>
-
-      <!-- Alcance 80 -->
-      <div class="score-card">
-        <div class="score-label">Alcance</div>
-        <div class="score-ring">
-          <svg viewBox="0 0 60 60" width="60" height="60">
-            <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
-            <circle class="score-ring-fill" cx="30" cy="30" r="27"
-              stroke="var(--purple)"
-              stroke-dasharray="169.6"
-              stroke-dashoffset="33.9"/>
+            <circle class="score-ring-fill" cx="30" cy="30" r="27" stroke="var(--blue)"
+              stroke-dasharray="169.6" stroke-dashoffset="33.9"/>
           </svg>
           <div class="score-num">80</div>
         </div>
       </div>
 
-      <!-- Engajamento 65 -->
+      <div class="score-card">
+        <div class="score-label">Alcance</div>
+        <div class="score-ring">
+          <svg viewBox="0 0 60 60" width="60" height="60">
+            <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
+            <circle class="score-ring-fill" cx="30" cy="30" r="27" stroke="var(--purple)"
+              stroke-dasharray="169.6" stroke-dashoffset="50.9"/>
+          </svg>
+          <div class="score-num">70</div>
+        </div>
+      </div>
+
       <div class="score-card">
         <div class="score-label">Engajamento</div>
         <div class="score-ring">
           <svg viewBox="0 0 60 60" width="60" height="60">
             <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
-            <circle class="score-ring-fill" cx="30" cy="30" r="27"
-              stroke="var(--orange)"
-              stroke-dasharray="169.6"
-              stroke-dashoffset="59.4"/>
+            <circle class="score-ring-fill" cx="30" cy="30" r="27" stroke="var(--orange)"
+              stroke-dasharray="169.6" stroke-dashoffset="27.1"/>
           </svg>
-          <div class="score-num">65</div>
+          <div class="score-num">84</div>
         </div>
       </div>
 
-      <!-- Seguidores 88 -->
       <div class="score-card">
         <div class="score-label">Seguidores</div>
         <div class="score-ring">
           <svg viewBox="0 0 60 60" width="60" height="60">
             <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
-            <circle class="score-ring-fill" cx="30" cy="30" r="27"
-              stroke="var(--pink)"
-              stroke-dasharray="169.6"
-              stroke-dashoffset="20.4"/>
+            <circle class="score-ring-fill" cx="30" cy="30" r="27" stroke="var(--pink)"
+              stroke-dasharray="169.6" stroke-dashoffset="40.7"/>
           </svg>
-          <div class="score-num">88</div>
+          <div class="score-num">76</div>
         </div>
       </div>
 
-      <!-- Ganchos 77 -->
       <div class="score-card">
         <div class="score-label">Ganchos</div>
         <div class="score-ring">
           <svg viewBox="0 0 60 60" width="60" height="60">
             <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
-            <circle class="score-ring-fill" cx="30" cy="30" r="27"
-              stroke="var(--green)"
-              stroke-dasharray="169.6"
-              stroke-dashoffset="39"/>
+            <circle class="score-ring-fill" cx="30" cy="30" r="27" stroke="var(--green)"
+              stroke-dasharray="169.6" stroke-dashoffset="20.4"/>
           </svg>
-          <div class="score-num">77</div>
+          <div class="score-num">88</div>
         </div>
       </div>
 
-      <!-- Nota Geral 76 -->
       <div class="score-card overall">
         <div class="score-label">Nota Geral</div>
         <div class="score-ring">
           <svg viewBox="0 0 60 60" width="60" height="60">
             <circle class="score-ring-bg" cx="30" cy="30" r="27"/>
-            <circle class="score-ring-fill" cx="30" cy="30" r="27"
-              stroke="rgba(255,255,255,.9)"
-              stroke-dasharray="169.6"
-              stroke-dashoffset="40.7"/>
+            <circle class="score-ring-fill" cx="30" cy="30" r="27" stroke="rgba(255,255,255,.9)"
+              stroke-dasharray="169.6" stroke-dashoffset="30.5"/>
           </svg>
-          <div class="score-num">76</div>
+          <div class="score-num">82</div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ══ PODIUM FINAL ═══════════════════════════════════════ -->
+  <!-- ══ PÓDIO FINAL ════════════════════════════════════════ -->
   <div class="section">
     <div class="section-title">Decisões da Semana</div>
     <div class="podium-grid">
@@ -910,22 +729,22 @@
       <div class="podium-card podium-gold">
         <span class="podium-medal">🥇</span>
         <div class="podium-heading">Continue Fazendo</div>
-        <div class="podium-action">Reels com ganchos de desconstrução ("Pare de X", "Ninguém fala de Y")</div>
-        <div class="podium-sub">São responsáveis por 65% dos novos seguidores. Dobre a aposta.</div>
+        <div class="podium-action">Reels com a ponte Fé + Neurociência em 25–40 segundos</div>
+        <div class="podium-sub">Esse ângulo é único no nicho e responsável pelos melhores resultados da semana.</div>
       </div>
 
       <div class="podium-card podium-silver">
         <span class="podium-medal">🥈</span>
         <div class="podium-heading">Teste</div>
-        <div class="podium-action">Bastidores do processo criativo em Reel de 20s</div>
-        <div class="podium-sub">Alta demanda por autenticidade. Pode ser o próximo viral do perfil.</div>
+        <div class="podium-action">Série de carrosséis: "Identidade feminina à luz de Deus" — 5 partes</div>
+        <div class="podium-sub">Séries geram retorno de seguidoras e aumentam salvamentos por publicação.</div>
       </div>
 
       <div class="podium-card podium-bronze">
         <span class="podium-medal">🥉</span>
         <div class="podium-heading">Pare de Fazer</div>
-        <div class="podium-action">Stories sem CTA e Reels com mais de 60 segundos</div>
-        <div class="podium-sub">Consomem energia e não convertem. Redirecione esse tempo para Reels curtos.</div>
+        <div class="podium-action">Reels longos e devocionais genéricos sem gancho específico</div>
+        <div class="podium-sub">Consomem energia sem crescimento. Substitua por Reels curtos e diretos.</div>
       </div>
 
     </div>
@@ -933,8 +752,8 @@
 
 </div><!-- /wrap -->
 
-<div class="footer" style="margin-top:48px;padding-bottom:40px;">
-  Gerado em 20 Jun 2026 · @alineataide · Dados via Apify
+<div class="footer">
+  Gerado em 21 Jun 2026 · @alineataide · 19.053 seguidores (real) · Apify Profile Scraper
 </div>
 
 </body>
