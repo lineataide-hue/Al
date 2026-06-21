@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calendário de Conteúdo — Julho 2026 | @alineataide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#E1306C;--purple:#833AB4;--orange:#F77737;--blue:#405DE6;
+  --green:#10B981;--red:#EF4444;--gray:#F5F5F5;--black:#111111;
+  --grad:linear-gradient(135deg,#E1306C,#833AB4,#405DE6);
+  --card-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#F8F8F8;color:#111;min-height:100vh}
+
+/* ── HEADER ── */
+.hero{background:var(--grad);padding:40px 24px 32px;text-align:center;color:#fff}
+.hero-label{font-size:11px;font-weight:700;letter-spacing:2px;opacity:.8;text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;opacity:.85;font-weight:400}
+.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.pill{background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);
+  border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:20px 24px;background:#fff;
+  border-bottom:1px solid #eee}
+.leg{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:#444}
+.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.dot-reel{background:var(--pink)}
+.dot-carr{background:var(--blue)}
+.dot-text{background:var(--purple)}
+
+/* ── CALENDAR GRID ── */
+.cal-wrap{max-width:900px;margin:32px auto;padding:0 20px}
+.cal-title{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#fff;border-radius:16px;
+  padding:16px;box-shadow:var(--card-shadow)}
+.cal-header{text-align:center;font-size:11px;font-weight:700;color:#999;padding:6px 0;letter-spacing:.5px}
+.cal-day{min-height:58px;border-radius:10px;padding:6px 8px;display:flex;flex-direction:column;gap:3px;
+  transition:transform .15s}
+.cal-day:hover{transform:scale(1.04);z-index:2}
+.cal-day.empty{background:transparent}
+.cal-day.no-post{background:#F8F8F8}
+.cal-day .dn{font-size:13px;font-weight:700;color:#333}
+.cal-day .dtype{font-size:9px;font-weight:700;letter-spacing:.5px;border-radius:4px;
+  padding:2px 5px;color:#fff;width:fit-content}
+.cal-day .dhook{font-size:9px;line-height:1.3;color:rgba(0,0,0,.55);margin-top:2px}
+.reel-day{background:linear-gradient(135deg,rgba(225,48,108,.1),rgba(225,48,108,.05));border:1.5px solid rgba(225,48,108,.3)}
+.carr-day{background:linear-gradient(135deg,rgba(64,93,230,.1),rgba(64,93,230,.05));border:1.5px solid rgba(64,93,230,.3)}
+.text-day{background:linear-gradient(135deg,rgba(131,58,180,.1),rgba(131,58,180,.05));border:1.5px solid rgba(131,58,180,.3)}
+.bg-reel{background:var(--pink)}
+.bg-carr{background:var(--blue)}
+.bg-text{background:var(--purple)}
+
+/* ── WEEK SECTIONS ── */
+.week-wrap{max-width:900px;margin:0 auto;padding:0 20px 60px}
+.week-header{display:flex;align-items:center;gap:12px;margin:40px 0 20px;padding-bottom:12px;
+  border-bottom:2px solid #eee}
+.week-badge{background:var(--black);color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;
+  padding:5px 12px;border-radius:100px;text-transform:uppercase}
+.week-label{font-size:18px;font-weight:700;color:#111}
+.week-stats{margin-left:auto;display:flex;gap:8px}
+.wstat{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;color:#fff}
+
+/* ── POST CARDS ── */
+.post-card{background:#fff;border-radius:20px;padding:28px;margin-bottom:20px;
+  box-shadow:var(--card-shadow);border:1px solid #eee;position:relative;overflow:hidden}
+.post-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%}
+.card-reel::before{background:var(--pink)}
+.card-carr::before{background:var(--blue)}
+.card-text::before{background:var(--purple)}
+
+.post-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.post-date{font-size:12px;font-weight:700;color:#888;letter-spacing:.5px;text-transform:uppercase}
+.format-badge{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;
+  padding:5px 12px;border-radius:100px;letter-spacing:.5px;color:#fff}
+.fb-reel{background:var(--pink)}
+.fb-carr{background:var(--blue)}
+.fb-text{background:var(--purple)}
+.post-emoji{font-size:18px}
+
+.post-hook{font-size:20px;font-weight:800;line-height:1.3;color:#111;margin-bottom:20px}
+.hook-highlight{color:var(--pink)}
+
+/* ── ROTEIRO ── */
+.roteiro-label{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:#bbb;margin-bottom:12px}
+.roteiro-body{font-size:14px;line-height:1.9;color:#333;white-space:pre-line}
+.roteiro-body strong{color:#111;font-weight:700}
+.roteiro-body em{color:var(--purple);font-style:normal;font-weight:600}
+
+/* Carrossel slides */
+.slides-grid{display:grid;gap:8px;margin-top:4px}
+.slide{border-radius:12px;padding:14px 16px;background:#F8F8F8;border:1px solid #eee}
+.slide-num{font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:#bbb;margin-bottom:6px}
+.slide.capa{background:linear-gradient(135deg,rgba(64,93,230,.08),rgba(131,58,180,.08));
+  border-color:rgba(64,93,230,.2)}
+.slide.cta{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.04));
+  border-color:rgba(16,185,129,.25)}
+.slide-text{font-size:13px;line-height:1.7;color:#333;white-space:pre-line}
+.slide-text b{color:#111;font-weight:700}
+
+/* Reel script */
+.reel-script{background:linear-gradient(135deg,rgba(225,48,108,.04),rgba(131,58,180,.04));
+  border:1px solid rgba(225,48,108,.15);border-radius:12px;padding:16px;
+  font-size:14px;line-height:1.9;color:#333;white-space:pre-line}
+
+/* Text post body */
+.text-body{background:linear-gradient(135deg,rgba(131,58,180,.04),rgba(64,93,230,.04));
+  border:1px solid rgba(131,58,180,.15);border-radius:12px;padding:16px;
+  font-size:14px;line-height:1.9;color:#333;white-space:pre-line}
+
+.cta-box{margin-top:16px;display:flex;align-items:center;gap:10px;padding:12px 16px;
+  background:#F0FDF4;border-radius:10px;border:1px solid rgba(16,185,129,.25)}
+.cta-box span{font-size:13px;color:#065F46;font-weight:500}
+
+.tip-box{margin-top:12px;display:flex;align-items:flex-start;gap:10px;padding:12px 14px;
+  background:#FEF3C7;border-radius:10px;border:1px solid rgba(251,191,36,.4)}
+.tip-box span{font-size:12px;color:#92400E;font-weight:500;line-height:1.5}
+
+/* ── SUMMARY STRIP ── */
+.summary{background:var(--grad);padding:28px 24px;text-align:center;color:#fff;margin-top:40px}
+.summary h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.summary p{font-size:14px;opacity:.85}
+.sum-grid{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.sum-stat{background:rgba(255,255,255,.2);border-radius:12px;padding:16px 24px;min-width:120px}
+.sum-stat .sv{font-size:28px;font-weight:900}
+.sum-stat .sl{font-size:11px;opacity:.8;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+
+@media(max-width:600px){
+  .post-hook{font-size:17px}
+  .cal-grid{gap:2px;padding:10px}
+  .cal-day{min-height:44px;padding:4px 5px}
+  .cal-day .dn{font-size:11px}
+  .cal-day .dhook{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">@alineataide · Fé · Mente · Disciplina</div>
+  <div class="hero-title">Calendário de Conteúdo<br>Julho 2026</div>
+  <div class="hero-sub">27 posts · roteiro completo · identidade bíblica + neurociência</div>
+  <div class="hero-pills">
+    <span class="pill">🎬 10 Reels</span>
+    <span class="pill">📊 11 Carrosséis</span>
+    <span class="pill">📝 6 Textos</span>
+    <span class="pill">📅 31 dias</span>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="leg"><span class="leg-dot dot-reel"></span>Reel — crescimento / alcance</div>
+  <div class="leg"><span class="leg-dot dot-carr"></span>Carrossel — saves / autoridade</div>
+  <div class="leg"><span class="leg-dot dot-text"></span>Texto — comunidade / profundidade</div>
+</div>
+
+<!-- CALENDAR -->
+<div class="cal-wrap">
+  <div class="cal-title">Visão do mês</div>
+  <div class="cal-grid">
+    <div class="cal-header">SEG</div><div class="cal-header">TER</div><div class="cal-header">QUA</div>
+    <div class="cal-header">QUI</div><div class="cal-header">SEX</div><div class="cal-header">SÁB</div>
+    <div class="cal-header">DOM</div>
+
+    <!-- Linha 1: Qua 1 → Dom 5 (começa na quarta, então 2 vazios) -->
+    <div class="cal-day empty"></div><div class="cal-day empty"></div>
+    <div class="cal-day reel-day"><div class="dn">1</div><div class="dtype bg-reel">REEL</div><div class="dhook">Deus não te chama porque você está pronta</div></div>
+    <div class="cal-day carr-day"><div class="dn">2</div><div class="dtype bg-carr">CARR</div><div class="dhook">O que Eva perdeu</div></div>
+    <div class="cal-day reel-day"><div class="dn">3</div><div class="dtype bg-reel">REEL</div><div class="dhook">A cultura tentou resolver o ego</div></div>
+    <div class="cal-day text-day"><div class="dn">4</div><div class="dtype bg-text">TEXT</div><div class="dhook">Davi vs Saul — não foi o pecado</div></div>
+    <div class="cal-day carr-day"><div class="dn">5</div><div class="dtype bg-carr">CARR</div><div class="dhook">3 coisas que a neurociência confirma</div></div>
+
+    <!-- Linha 2: Seg 6 → Dom 12 -->
+    <div class="cal-day no-post"><div class="dn" style="color:#bbb">6</div></div>
+    <div class="cal-day carr-day"><div class="dn">7</div><div class="dtype bg-carr">CARR</div><div class="dhook">Maria disse sim sem entender</div></div>
+    <div class="cal-day reel-day"><div class="dn">8</div><div class="dtype bg-reel">REEL</div><div class="dhook">Maria não entendeu o plano</div></div>
+    <div class="cal-day carr-day"><div class="dn">9</div><div class="dtype bg-carr">CARR</div><div class="dhook">O que acontece no cérebro que perdoa</div></div>
+    <div class="cal-day reel-day"><div class="dn">10</div><div class="dtype bg-reel">REEL</div><div class="dhook">Jesus não disse pra se amar mais</div></div>
+    <div class="cal-day text-day"><div class="dn">11</div><div class="dtype bg-text">TEXT</div><div class="dhook">A mulher que lavou os pés de Jesus</div></div>
+    <div class="cal-day carr-day"><div class="dn">12</div><div class="dtype bg-carr">CARR</div><div class="dhook">5 sinais que você serve por medo</div></div>
+
+    <!-- Linha 3: Seg 13 → Dom 19 -->
+    <div class="cal-day no-post"><div class="dn" style="color:#bbb">13</div></div>
+    <div class="cal-day text-day"><div class="dn">14</div><div class="dtype bg-text">TEXT</div><div class="dhook">A cultura mente sobre força</div></div>
+    <div class="cal-day reel-day"><div class="dn">15</div><div class="dtype bg-reel">REEL</div><div class="dhook">A cultura mente sobre força</div></div>
+    <div class="cal-day carr-day"><div class="dn">16</div><div class="dtype bg-carr">CARR</div><div class="dhook">O que Rute ensina sobre identidade</div></div>
+    <div class="cal-day reel-day"><div class="dn">17</div><div class="dtype bg-reel">REEL</div><div class="dhook">Ninguém fala sobre parar de se comparar</div></div>
+    <div class="cal-day text-day"><div class="dn">18</div><div class="dtype bg-text">TEXT</div><div class="dhook">Ester não era corajosa por falta de medo</div></div>
+    <div class="cal-day carr-day"><div class="dn">19</div><div class="dtype bg-carr">CARR</div><div class="dhook">Neurociência do perdão</div></div>
+
+    <!-- Linha 4: Seg 20 → Dom 26 -->
+    <div class="cal-day no-post"><div class="dn" style="color:#bbb">20</div></div>
+    <div class="cal-day carr-day"><div class="dn">21</div><div class="dtype bg-carr">CARR</div><div class="dhook">A maior mentira da religião</div></div>
+    <div class="cal-day reel-day"><div class="dn">22</div><div class="dtype bg-reel">REEL</div><div class="dhook">A religião reduziu mulheres</div></div>
+    <div class="cal-day carr-day"><div class="dn">23</div><div class="dtype bg-carr">CARR</div><div class="dhook">O que Ana fez antes de pedir</div></div>
+    <div class="cal-day reel-day"><div class="dn">24</div><div class="dtype bg-reel">REEL</div><div class="dhook">Não precisa entender o plano</div></div>
+    <div class="cal-day text-day"><div class="dn">25</div><div class="dtype bg-text">TEXT</div><div class="dhook">O que Pedro fez — a volta</div></div>
+    <div class="cal-day carr-day"><div class="dn">26</div><div class="dtype bg-carr">CARR</div><div class="dhook">5 marcadores de maturidade emocional</div></div>
+
+    <!-- Linha 5: Seg 27 → Qui 31 -->
+    <div class="cal-day no-post"><div class="dn" style="color:#bbb">27</div></div>
+    <div class="cal-day reel-day"><div class="dn">28</div><div class="dtype bg-reel">REEL</div><div class="dhook">O silêncio de Deus não é ausência</div></div>
+    <div class="cal-day text-day"><div class="dn">29</div><div class="dtype bg-text">TEXT</div><div class="dhook">Liberdade bíblica vs cultura</div></div>
+    <div class="cal-day carr-day"><div class="dn">30</div><div class="dtype bg-carr">CARR</div><div class="dhook">A decisão que custou o reino</div></div>
+    <div class="cal-day reel-day"><div class="dn">31</div><div class="dtype bg-reel">REEL</div><div class="dhook">Julho te fez crescer ou recuar?</div></div>
+    <div class="cal-day empty"></div><div class="cal-day empty"></div>
+  </div>
+</div>
+
+<!-- ══════════════ POSTS ══════════════ -->
+<div class="week-wrap">
+
+<!-- ─── SEMANA 1 ─── -->
+<div class="week-header">
+  <span class="week-badge">Semana 1</span>
+  <span class="week-label">1–5 de julho</span>
+  <div class="week-stats">
+    <span class="wstat" style="background:var(--pink)">2 Reels</span>
+    <span class="wstat" style="background:var(--blue)">2 Carr</span>
+    <span class="wstat" style="background:var(--purple)">1 Text</span>
+  </div>
+</div>
+
+<!-- ── Jul 1 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Quarta, 1 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">🔥</span>
+  </div>
+  <div class="post-hook">Deus não te chama porque você está pronta.<br><span class="hook-highlight">Ele te chama porque você é Sua.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">Deus não te chama porque você está pronta.
+Ele te chama porque você é Sua.
+
+Moisés era inseguro.
+Jonas estava fugindo.
+Pedro havia acabado de negar Jesus.
+
+Deus não esperou eles se arrumarem.
+Ele chegou no meio da bagunça.
+
+A pergunta não é:
+"Quando eu estiver pronta?"
+
+A pergunta é:
+"Você vai responder mesmo assim?"</div>
+  <div class="cta-box"><span>💬 Me conta nos comentários: o que você acha que precisa resolver antes de responder ao chamado?</span></div>
+  <div class="tip-box"><span>💡 Entrar com pausa dramática antes de "A pergunta é:". Olhar direto para a câmera nesse momento.</span></div>
+</div>
+
+<!-- ── Jul 2 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Quinta, 2 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🍃</span>
+  </div>
+  <div class="post-hook">O que Eva perdeu —<br>e o que você pode recuperar</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>O que Eva perdeu — e o que você pode recuperar</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">Eva tinha identidade clara antes da queda.
+Ela foi feita, nomeada, chamada.
+Não precisava provar nada.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">A serpente não vendeu pecado.
+Ela vendeu dúvida sobre quem Eva era.
+
+<b>"Vocês não morrerão..." (Gn 3.4)</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text">A primeira mentira da humanidade
+não foi sobre Deus.
+
+<b>Foi sobre identidade.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">Quando você duvida de quem você é,
+você começa a buscar aprovação
+onde Deus nunca pediu.</div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text">O que Eva perdeu foi o ponto de partida:
+saber que ela era suficiente
+antes de fazer qualquer coisa.</div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">Você pode recuperar isso.
+Não através de performance.
+Mas através de uma volta à origem.</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve pra relembrar quando a dúvida chegar.
+
+💬 Me conta: quando você começou a duvidar de quem você é?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 3 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Sexta, 3 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">⚡</span>
+  </div>
+  <div class="post-hook">A cultura tentou resolver o ego.<br><span class="hook-highlight">O evangelho faz algo mais radical.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">A cultura tentou resolver o ego.
+O evangelho faz algo mais radical.
+
+A cultura diz: ame-se mais.
+Afirme-se. Valorize-se. Celebre-se.
+
+O evangelho diz:
+morra para si mesma.
+
+Isso parece violento.
+Mas é libertação.
+
+Porque o ego que você estava tentando amar
+era construído sobre comparação,
+medo e aprovação.
+
+Quando ele morre,
+você descobre quem você é de verdade.
+
+<em>"Porque quem quiser salvar a sua vida a perderá;
+mas quem perder a sua vida por minha causa,
+a encontrará." (Mt 16.25)</em>
+
+O que a cultura chama de empoderamento,
+Jesus chama de grilhão dourado.</div>
+  <div class="cta-box"><span>💬 Faz sentido pra você?</span></div>
+</div>
+
+<!-- ── Jul 4 · Texto ── -->
+<div class="post-card card-text">
+  <div class="post-meta">
+    <span class="post-date">Sábado, 4 jul</span>
+    <span class="format-badge fb-text">📝 Texto</span>
+    <span class="post-emoji">📖</span>
+  </div>
+  <div class="post-hook">A diferença entre Davi e Saul<br>não foi o pecado.</div>
+  <div class="roteiro-label">Texto completo da legenda</div>
+  <div class="text-body">A diferença entre Davi e Saul não foi o pecado.
+
+Os dois pecaram.
+
+Davi cometeu adultério e mandou matar.
+Saul desobedeceu e se justificou.
+
+A diferença foi o que veio depois.
+
+Saul disse: <em>"Pequei. Mas honra-me diante do povo." (1 Sm 15.30)</em>
+Davi disse: <em>"Pequei contra o Senhor." (2 Sm 12.13)</em>
+
+Um estava preocupado com imagem.
+O outro estava preocupado com restauração.
+
+Quando você peca,
+o que você quer de volta?
+
+A reputação?
+Ou o relacionamento com Deus?
+
+A resposta muda tudo.</div>
+  <div class="cta-box"><span>💬 Me conta: você costuma se preocupar mais com o que os outros vão pensar ou com o que Deus pensa?</span></div>
+</div>
+
+<!-- ── Jul 5 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Domingo, 5 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🧠</span>
+  </div>
+  <div class="post-hook">3 coisas que a neurociência confirma<br>que Deus já sabia</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>3 coisas que a neurociência confirma que Deus já sabia</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text"><b>1. Gratidão reprograma o cérebro.</b>
+
+Pesquisas mostram que praticar gratidão
+muda literalmente as conexões neurais.
+
+Filipenses 4.6 já dizia:
+<em>"apresentai os vossos pedidos com ação de graças."</em></div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text"><b>2. Perdão beneficia quem perdoa.</b>
+
+Guardar rancor ativa a amígdala
+e mantém o corpo em estado de estresse crônico.
+
+Jesus não pediu perdão a favor de quem pecou.
+<b>Pediu pela sua liberdade.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text"><b>3. Isolamento mata.</b>
+
+Neurociência confirma: solidão crônica
+tem o mesmo impacto que fumar 15 cigarros por dia.
+
+<em>"Não é bom que o homem esteja só." (Gn 2.18)</em>
+
+(E isso foi dito antes do pecado entrar.)</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">Deus não usou linguagem científica
+porque não precisava.
+
+<b>Ele escreveu a ciência.</b></div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve pra usar na próxima vez que alguém perguntar
+"o que a Bíblia tem a ver com ciência?"</div></div>
+  </div>
+</div>
+
+<!-- ─── SEMANA 2 ─── -->
+<div class="week-header">
+  <span class="week-badge">Semana 2</span>
+  <span class="week-label">7–12 de julho</span>
+  <div class="week-stats">
+    <span class="wstat" style="background:var(--pink)">3 Reels</span>
+    <span class="wstat" style="background:var(--blue)">2 Carr</span>
+    <span class="wstat" style="background:var(--purple)">1 Text</span>
+  </div>
+</div>
+
+<!-- ── Jul 7 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Terça, 7 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🕊️</span>
+  </div>
+  <div class="post-hook">Maria disse sim<br>sem entender o plano</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>Maria disse sim sem entender o plano</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">O anjo chegou com uma notícia impossível.
+Uma virgem grávida pelo Espírito Santo.
+
+Sem precedente. Sem manual. Sem aviso prévio.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">Maria não disse: "Deixa eu entender melhor."
+Ela perguntou apenas <b>como</b> seria.
+
+E quando recebeu a resposta,
+ela disse sim.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text">Esse "sim" tinha custo.
+
+Ela perderia a reputação.
+Arriscaria o noivado.
+Poderia ser apedrejada.</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text"><em>"Eis aqui a serva do Senhor;
+faça-se em mim segundo a tua palavra." (Lc 1.38)</em></div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text">Confiar em Deus
+não significa entender o plano.
+
+<b>Significa confiar em quem está no controle do plano.</b></div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve esse carrossel.
+
+💬 Me conta: tem algo que você está esperando entender antes de dizer sim?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 8 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Quarta, 8 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">🕊️</span>
+  </div>
+  <div class="post-hook">Maria não entendeu o plano de Deus.<br><span class="hook-highlight">E mesmo assim disse sim.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">Maria não entendeu o plano de Deus.
+E mesmo assim disse sim.
+
+Ela era adolescente.
+Vivia num lugar pequeno.
+Não tinha poder, dinheiro ou influência.
+
+E o anjo chegou com uma proposta
+que podia destruir sua vida.
+
+Ela não entendeu tudo.
+Ela perguntou como seria.
+
+E quando o Espírito foi suficiente como resposta,
+ela disse sim.
+
+<em>"Faça-se em mim segundo a tua palavra." (Lc 1.38)</em>
+
+Você está esperando entender o plano completo
+para dar o próximo passo?
+
+Maria não esperou.</div>
+  <div class="cta-box"><span>💬 Me conta: qual é o "sim" que você está adiando?</span></div>
+  <div class="tip-box"><span>💡 Par temático com carrossel de ontem (Jul 7). Mesmo personagem, formato diferente — abrange quem perdeu o carrossel.</span></div>
+</div>
+
+<!-- ── Jul 9 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Quinta, 9 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🧠</span>
+  </div>
+  <div class="post-hook">O que acontece no cérebro de uma mulher<br>que perdoa de verdade</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>O que acontece no cérebro de uma mulher que perdoa de verdade</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">Perdão não é sentimento.
+<b>É decisão.</b>
+
+E a neurociência explica por quê isso importa.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text"><b>Quando você não perdoa:</b>
+
+→ Amígdala em estado de alerta constante
+→ Cortisol elevado
+→ Memória reprocessa a dor em loop</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text"><b>Quando você escolhe perdoar:</b>
+
+→ Ativação do córtex pré-frontal
+→ Redução da resposta ao estresse
+→ O cérebro para de interpretar como ameaça ativa</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">Jesus não pediu perdão porque é fácil.
+
+Pediu porque você paga o preço do rancor
+<b>no seu próprio corpo.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text"><em>"Sede uns para com os outros benignos e compassivos,
+perdoando-vos uns aos outros,
+como também Deus vos perdoou em Cristo." (Ef 4.32)</em></div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">Perdoar não é dizer que o que aconteceu foi certo.
+
+<b>É soltar a sua amígdala do passado.</b></div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve pra lembrar quando o perdão parecer impossível.
+
+💬 Me conta: você já sentiu fisicamente o peso de não perdoar?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 10 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Sexta, 10 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">💛</span>
+  </div>
+  <div class="post-hook">Jesus não disse pra você<br><span class="hook-highlight">se amar mais.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">Jesus não disse pra você se amar mais.
+
+Ele disse pra você amar ao próximo
+como você já se ama.
+
+A premissa era que o amor próprio
+já estava dado.
+
+Você não precisa de mais autoestima.
+Você precisa de identidade.
+
+Autoestima sobe e desce com performance.
+Identidade permanece.
+
+Quando você sabe quem você é em Cristo,
+você não precisa de validação constante.
+
+Não precisa de aprovação.
+Não precisa provar nada.
+
+Você já é amada antes de fazer qualquer coisa.
+
+<em>"Deus nos amou primeiro." (1 Jo 4.19)</em>
+
+Isso é diferente de autoestima.
+Isso é fundamento.</div>
+  <div class="cta-box"><span>💬 Te ajudou?</span></div>
+</div>
+
+<!-- ── Jul 11 · Texto ── -->
+<div class="post-card card-text">
+  <div class="post-meta">
+    <span class="post-date">Sábado, 11 jul</span>
+    <span class="format-badge fb-text">📝 Texto</span>
+    <span class="post-emoji">💧</span>
+  </div>
+  <div class="post-hook">A mulher que lavou os pés de Jesus<br>não pediu permissão.</div>
+  <div class="roteiro-label">Texto completo da legenda</div>
+  <div class="text-body">A mulher que lavou os pés de Jesus não pediu permissão.
+
+Ela entrou na casa de Simão — que não a havia convidado.
+Quebrou o alabastro — que custava um salário anual.
+Lavou os pés de Jesus com lágrimas — sem palavras.
+
+Ninguém a validou antes.
+Ninguém autorizou.
+
+Simão pensou: "Se ele fosse profeta, saberia quem é essa mulher."
+Os outros julgaram: "Para que esse desperdício?"
+
+Jesus disse: <em>"Seu amor foi grande. Seus pecados são perdoados." (Lc 7.47)</em>
+
+A adoração mais poderosa da Bíblia
+não veio de quem tinha permissão social.
+
+Veio de quem tinha certeza de que precisava de Jesus.
+
+Às vezes o que te impede de adorar
+não é indignidade.
+
+É medo do que os outros vão achar.</div>
+  <div class="cta-box"><span>💬 Me conta: você já deixou de fazer algo por Deus porque tinha medo do julgamento?</span></div>
+</div>
+
+<!-- ── Jul 12 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Domingo, 12 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🧩</span>
+  </div>
+  <div class="post-hook">5 sinais de que você serve por medo,<br>não por amor</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>5 sinais de que você serve por medo, não por amor</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text"><b>1. Você não consegue dizer não.</b>
+
+Não porque você ama servir,
+mas porque tem medo do que acontece se você recusar.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text"><b>2. Você sente ressentimento depois.</b>
+
+Servir por amor enche.
+Servir por medo esvazia.
+
+Se você sai da igreja exausta e amargurada,
+vale investigar a motivação.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text"><b>3. Você precisa de reconhecimento.</b>
+
+Amor serve em silêncio.
+Medo precisa ser visto
+para saber se "valeu a pena".</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text"><b>4. Você compara o seu serviço com o de outros.</b>
+
+Por amor, você não compara.
+Por medo, você precisa saber se está fazendo suficiente.</div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text"><b>5. Você tem medo de decepcionar Deus.</b>
+
+Não respeito. Medo.
+Como se o amor Dele dependesse do que você faz.</div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text"><em>"Porque o amor perfeito lança fora o medo." (1 Jo 4.18)</em>
+
+Você não serve pra ser amada.
+Você serve porque já é.</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve e reflita com honestidade.
+
+💬 Me conta: qual desses você se identificou?</div></div>
+  </div>
+</div>
+
+<!-- ─── SEMANA 3 ─── -->
+<div class="week-header">
+  <span class="week-badge">Semana 3</span>
+  <span class="week-label">14–19 de julho</span>
+  <div class="week-stats">
+    <span class="wstat" style="background:var(--pink)">2 Reels</span>
+    <span class="wstat" style="background:var(--blue)">2 Carr</span>
+    <span class="wstat" style="background:var(--purple)">2 Text</span>
+  </div>
+</div>
+
+<!-- ── Jul 14 · Texto ── -->
+<div class="post-card card-text">
+  <div class="post-meta">
+    <span class="post-date">Terça, 14 jul</span>
+    <span class="format-badge fb-text">📝 Texto</span>
+    <span class="post-emoji">💪</span>
+  </div>
+  <div class="post-hook">A cultura mente sobre o que é força.</div>
+  <div class="roteiro-label">Texto completo da legenda</div>
+  <div class="text-body">A cultura mente sobre o que é força.
+
+Ela diz: não chore. Não mostre fraqueza. Não precise de ninguém.
+
+A Bíblia diz algo completamente diferente.
+
+Paulo escreveu suas cartas mais poderosas de dentro de uma prisão.
+Davi escreveu seus salmos mais profundos na fuga.
+Jesus chorou diante do túmulo de Lázaro.
+
+Ele chorou — mesmo sabendo que ia ressuscitá-lo.
+
+Força bíblica não é ausência de emoção.
+É presença de Deus no meio da emoção.
+
+<em>"O meu poder se aperfeiçoa na fraqueza." (2 Co 12.9)</em>
+
+A mulher mais forte que conheço
+não é a que nunca chora.
+
+É a que chora e ainda se levanta.</div>
+  <div class="cta-box"><span>💬 Me conta: o que a cultura te ensinou sobre força que a Bíblia contraria?</span></div>
+</div>
+
+<!-- ── Jul 15 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Quarta, 15 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">💪</span>
+  </div>
+  <div class="post-hook">A cultura mente sobre o que é força.<br><span class="hook-highlight">A Bíblia mostra outra coisa.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">A cultura mente sobre o que é força.
+
+Ela diz:
+não chore,
+não precise,
+não mostre fraqueza.
+
+E a gente vai empilhando isso.
+Até que não aguenta mais.
+
+Jesus chorou.
+Paulo estava com medo.
+Davi estava exausto.
+
+E Deus não os descartou.
+Ele apareceu exatamente ali.
+
+<em>"O meu poder se aperfeiçoa na fraqueza." (2 Co 12.9)</em>
+
+Fraqueza não é o lugar onde Deus some.
+É o lugar onde Ele aparece com mais clareza.
+
+A mulher mais forte que conheço
+não é a que nunca quebra.
+
+É a que quebra e ainda confia.</div>
+  <div class="cta-box"><span>💬 Isso ressoa com você?</span></div>
+  <div class="tip-box"><span>💡 Par temático com o texto de ontem (Jul 14). Mesmo tema, dobra o alcance: quem viu o texto vê o Reel e vice-versa.</span></div>
+</div>
+
+<!-- ── Jul 16 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Quinta, 16 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🌾</span>
+  </div>
+  <div class="post-hook">O que Rute ensina sobre identidade<br>quando tudo acaba</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>O que Rute ensina sobre identidade quando tudo acaba</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">Rute perdeu tudo em sequência.
+O marido. O cunhado. O sogro.
+A vida que ela tinha planejado.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">Noemi disse:
+<em>"Voltem para a casa de suas mães.
+O Senhor lhes seja bondoso." (Rt 1.8)</em>
+
+Orpá voltou.
+Rute ficou.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text">Por quê?
+
+Não por obrigação legal.
+Ela não devia nada a Noemi.
+
+Ela ficou por <b>decisão de identidade.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text"><em>"Para onde tu fores, eu irei.
+O teu Deus será o meu Deus." (Rt 1.16)</em>
+
+Ela não sabia o que a esperava.
+Mas sabia quem ela era e o que valorizava.</div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text">Identidade não é o que você tem.
+Não é seu estado civil, sua cidade, seu plano.
+
+<b>É o que permanece quando tudo isso some.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">Rute chegou em Belém com nada.
+E se tornou a bisavó de Davi
+e antepassada de Jesus.</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve pra quando a vida não seguir o plano.
+
+💬 Me conta: o que permanece em você quando tudo mais some?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 17 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Sexta, 17 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">👁️</span>
+  </div>
+  <div class="post-hook">Ninguém fala do que acontece espiritualmente<br><span class="hook-highlight">quando você para de se comparar.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">Ninguém fala do que acontece espiritualmente
+quando você para de se comparar.
+
+Quando você para de observar a vida dos outros
+com inveja ou comparação,
+
+você começa a enxergar a sua.
+
+Os detalhes que Deus está tecendo.
+As graças que você não percebia
+porque estava olhando para o lado.
+
+Comparação não é só emocional.
+É espiritual.
+
+Ela desvia o seu olhar do único lugar
+onde Deus está trabalhando:
+a sua história.
+
+<em>"Mas cada um prove a sua própria obra,
+e então terá motivo de gloriar-se em si mesmo
+e não em outro." (Gl 6.4)</em>
+
+Quando foi a última vez que você olhou pra sua vida
+sem compará-la com a de ninguém?
+
+Tenta isso hoje.</div>
+  <div class="cta-box"><span>💬 Me conta o que você percebeu quando parou de comparar.</span></div>
+</div>
+
+<!-- ── Jul 18 · Texto ── -->
+<div class="post-card card-text">
+  <div class="post-meta">
+    <span class="post-date">Sábado, 18 jul</span>
+    <span class="format-badge fb-text">📝 Texto</span>
+    <span class="post-emoji">👑</span>
+  </div>
+  <div class="post-hook">Ester não foi corajosa<br>porque não tinha medo.</div>
+  <div class="roteiro-label">Texto completo da legenda</div>
+  <div class="text-body">Ester não foi corajosa porque não tinha medo.
+
+<em>"Vai reunir todos os judeus de Susã e jejua por mim." (Et 4.16)</em>
+
+Ela estava com medo.
+Tanto que pediu três dias de jejum antes.
+
+Ela sabia que poderia morrer.
+"Se perecer, perecerei."
+
+Essa frase não é de alguém sem medo.
+É de alguém que decidiu agir apesar dele.
+
+Coragem não é ausência de medo.
+É a decisão de que algo importa mais do que o medo.
+
+Pra Ester, o povo dela importava mais.
+
+Pra você, o que importa mais?</div>
+  <div class="cta-box"><span>💬 O que você está adiando porque está com medo? Me conta.</span></div>
+</div>
+
+<!-- ── Jul 19 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Domingo, 19 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🧠</span>
+  </div>
+  <div class="post-hook">Neurociência do perdão:<br>o que muda no seu cérebro</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>Neurociência do perdão: o que muda no seu cérebro</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">Você já sentiu o peso de não perdoar?
+É literalmente físico.
+Não é metáfora.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">Memória traumática e rancor
+ativam a amígdala —
+a parte do cérebro responsável pelo medo.
+
+Isso mantém seu sistema nervoso
+em modo de sobrevivência constante.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text"><b>O que você experimenta:</b>
+
+→ Ansiedade crônica
+→ Dificuldade de confiar
+→ Reações desproporcionais
+→ Cansaço sem explicação</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">Quando você perdoa — como decisão, não sentimento —
+o córtex pré-frontal assume o controle.
+
+O cérebro começa a reclassificar a ameaça.</div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text"><b>O que muda:</b>
+
+→ Regulação emocional melhora
+→ Qualidade do sono aumenta
+→ Relacionamentos ficam mais seguros
+→ Você para de ser refém do passado</div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">Jesus não pediu perdão pra beneficiar quem te feriu.
+Ele pediu pra te libertar.
+
+<em>"Perdoai para que o vosso Pai celestial vos perdoe." (Mc 11.25)</em></div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve e compartilhe com alguém que precisa disso.
+
+💬 Me conta: você já percebeu sintomas físicos por não perdoar?</div></div>
+  </div>
+</div>
+
+<!-- ─── SEMANA 4 ─── -->
+<div class="week-header">
+  <span class="week-badge">Semana 4</span>
+  <span class="week-label">21–26 de julho</span>
+  <div class="week-stats">
+    <span class="wstat" style="background:var(--pink)">3 Reels</span>
+    <span class="wstat" style="background:var(--blue)">3 Carr</span>
+    <span class="wstat" style="background:var(--purple)">1 Text</span>
+  </div>
+</div>
+
+<!-- ── Jul 21 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Terça, 21 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">⚡</span>
+  </div>
+  <div class="post-hook">A maior mentira que a religião<br>vende para mulheres</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>A maior mentira que a religião vende para mulheres</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">A mentira não aparece gritando.
+Ela aparece em frases gentis:
+
+"Seja humilde."
+"Não se coloque pra frente."
+"Mulher boa não questiona."</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">E aos poucos você aprende a se encolher.
+A pedir desculpa por existir.
+A diminuir para caber.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text">Mas esse não é o Deus da Bíblia.
+
+Débora julgava uma nação.
+Priscila ensinava teologia.
+Maria Madalena foi escolhida pra anunciar a ressurreição.</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">O evangelho não reduz mulheres.
+<b>O evangelho as convoca.</b>
+
+A primeira testemunha do ressuscitado
+foi uma mulher.
+
+Num tempo em que testemunho de mulher
+não tinha valor legal.</div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text">Jesus fez questão.
+Isso não é coincidência.</div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">A submissão bíblica não é silêncio.
+É posicionamento.
+
+Saber de onde você fala
+e falar com autoridade.</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve e compartilhe com a mulher que precisa ouvir isso.
+
+💬 Me conta: que mentira religiosa você levou tempo pra desmontar?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 22 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Quarta, 22 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">🔥</span>
+  </div>
+  <div class="post-hook">A religião reduziu mulheres.<br><span class="hook-highlight">O evangelho as convocou.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">A religião reduziu mulheres.
+O evangelho as convocou.
+
+Maria Madalena foi escolhida
+para anunciar a ressurreição.
+
+Num tempo em que testemunho de mulher
+não tinha valor legal.
+
+Jesus fez questão de escolher ela.
+
+Débora liderava.
+Priscila ensinava.
+Ester intercedia.
+Rute decidia.
+
+Essas mulheres não estavam à margem.
+Estavam no centro da história.
+
+Se você foi ensinada a se encolher,
+a diminuir,
+a pedir desculpa por ter voz —
+
+isso não veio do evangelho.
+
+Veio de uma distorção religiosa.
+
+O evangelho te convoca.
+Não te cala.</div>
+  <div class="cta-box"><span>💬 Isso fez sentido pra você?</span></div>
+  <div class="tip-box"><span>💡 Par temático com o carrossel de ontem (Jul 21). Maior potencial viral da semana — tema com alto poder de compartilhamento.</span></div>
+</div>
+
+<!-- ── Jul 23 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Quinta, 23 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🙏</span>
+  </div>
+  <div class="post-hook">O que Ana fez<br>antes de pedir o impossível</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>O que Ana fez antes de pedir o impossível</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">Ana era estéril.
+No contexto dela, isso era mais que médico.
+
+Era social, espiritual, identitário.
+Ela carregava uma dor que ninguém conseguia explicar.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">A outra esposa a provocava.
+O marido tentava consolar — e não conseguia.
+O sacerdote a acusou de bêbada.
+
+Ela estava cercada de gente que não entendia.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text">E então ela fez algo radical.
+
+Ela foi ao templo.
+Não pra ser vista.
+<b>Mas pra ser ouvida.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">Ela chorou.
+Ela prometeu.
+Ela falou o que estava no coração
+sem polir, sem ensaiar.
+
+<em>(1 Sm 1.10-11)</em></div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text">E Eli disse: "Vai em paz.
+O Deus de Israel te conceda o que pediste."
+
+Ela ainda não tinha a resposta.
+<b>Mas ela saiu diferente.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">Às vezes Deus não responde no templo.
+
+Mas Ele encontra você lá.
+E isso já muda tudo.</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve pra lembrar quando você estiver na sua espera.
+
+💬 Me conta: você está esperando algo que parece impossível?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 24 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Sexta, 24 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">🗺️</span>
+  </div>
+  <div class="post-hook">Você não precisa entender o plano de Deus<br><span class="hook-highlight">para confiar nele.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">Você não precisa entender o plano de Deus
+para confiar nele.
+
+Abraão não sabia onde estava indo.
+Moisés não sabia que abriria o mar.
+José não sabia que a prisão era parte da rota.
+
+Nenhum deles tinha o mapa completo.
+
+Mas eles tinham algo que o mapa não substitui:
+conhecimento de quem os estava guiando.
+
+<em>"Confia no Senhor de todo o teu coração
+e não te estribes no teu próprio entendimento." (Pv 3.5)</em>
+
+Isso não é fé ingênua.
+É fé fundamentada.
+
+Não em circunstâncias,
+mas em caráter.
+
+O caráter de um Deus
+que não falhou nenhuma das promessas
+que você já viu se cumprir.</div>
+  <div class="cta-box"><span>💬 Qual promessa você já viu se cumprir que te dá coragem pra confiar hoje? Me conta.</span></div>
+</div>
+
+<!-- ── Jul 25 · Texto ── -->
+<div class="post-card card-text">
+  <div class="post-meta">
+    <span class="post-date">Sábado, 25 jul</span>
+    <span class="format-badge fb-text">📝 Texto</span>
+    <span class="post-emoji">🐟</span>
+  </div>
+  <div class="post-hook">O que Pedro fez que<br>quase ninguém menciona.</div>
+  <div class="roteiro-label">Texto completo da legenda</div>
+  <div class="text-body">O que Pedro fez que quase ninguém menciona.
+
+Não foi andar sobre as águas.
+Não foi a confissão de Cesareia.
+
+Foi a volta.
+
+Depois de negar Jesus três vezes,
+depois do galo cantar,
+depois de olhar nos olhos de Jesus no pátio —
+
+Pedro voltou.
+
+Não tinha garantia de que seria recebido.
+Não sabia o que aconteceria depois.
+
+Mas ele voltou.
+
+E Jesus não começou com acusação.
+Começou com uma pergunta:
+<em>"Simão, filho de Jonas, você me ama?" (Jo 21.17)</em>
+
+Três negações. Três perguntas.
+Restauração completa.
+
+A coisa mais difícil depois de uma queda
+não é a queda em si.
+
+É acreditar que você pode voltar.
+
+Pedro voltou.
+Você também pode.</div>
+  <div class="cta-box"><span>💬 Me conta: tem algo do qual você sente que não pode voltar?</span></div>
+</div>
+
+<!-- ── Jul 26 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Domingo, 26 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">🌱</span>
+  </div>
+  <div class="post-hook">5 marcadores de maturidade emocional<br>segundo a neurociência</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>5 marcadores de maturidade emocional segundo a neurociência</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text"><b>1. Regulação emocional.</b>
+
+Você consegue sentir sem ser varrida.
+Reconhece a emoção sem ser definida por ela.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text"><b>2. Tolerância à frustração.</b>
+
+Você aguenta o "não".
+Aguenta a espera.
+Aguenta o plano que não aconteceu como planejado.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text"><b>3. Responsabilidade sem autopunição.</b>
+
+Você reconhece o erro.
+Mas não vive em loop de vergonha.
+Corrige e segue.</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text"><b>4. Capacidade de limites saudáveis.</b>
+
+Você consegue dizer não
+sem precisar de justificativa elaborada.</div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text"><b>5. Presença na relação.</b>
+
+Você consegue estar com pessoas
+sem precisar controlar o que pensam de você.</div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">A Bíblia chama isso de frutos do Espírito.
+
+Amor, alegria, paz, longanimidade...
+
+Não são sentimentos espontâneos.
+São marcadores de crescimento.</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve e avalie honestamente.
+
+💬 Me conta: qual desses você ainda está desenvolvendo?</div></div>
+  </div>
+</div>
+
+<!-- ─── SEMANA 5 ─── -->
+<div class="week-header">
+  <span class="week-badge">Semana 5</span>
+  <span class="week-label">28–31 de julho</span>
+  <div class="week-stats">
+    <span class="wstat" style="background:var(--pink)">2 Reels</span>
+    <span class="wstat" style="background:var(--blue)">1 Carr</span>
+    <span class="wstat" style="background:var(--purple)">1 Text</span>
+  </div>
+</div>
+
+<!-- ── Jul 28 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Terça, 28 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">🌑</span>
+  </div>
+  <div class="post-hook">O silêncio de Deus<br><span class="hook-highlight">não é ausência.</span></div>
+  <div class="roteiro-label">Roteiro — fala à câmera</div>
+  <div class="reel-script">O silêncio de Deus não é ausência.
+
+Maria ficou nove meses
+sem instrução nova do anjo.
+
+Ana esperou anos
+sem resposta.
+
+José ficou 13 anos
+entre a promessa e o cumprimento.
+
+O silêncio não era rejeição.
+Era preparação.
+
+Deus não some quando você não O ouve.
+Ele trabalha em silêncio.
+
+Como semente debaixo da terra.
+Como pão no forno.
+Como filhos formados no escuro.
+
+<em>"Aquele que vos chamou é fiel,
+e ele mesmo o fará." (1 Ts 5.24)</em>
+
+Ele não depende do seu sentimento
+para ser fiel.</div>
+  <div class="cta-box"><span>💬 O que você está esperando em silêncio?</span></div>
+</div>
+
+<!-- ── Jul 29 · Texto ── -->
+<div class="post-card card-text">
+  <div class="post-meta">
+    <span class="post-date">Quarta, 29 jul</span>
+    <span class="format-badge fb-text">📝 Texto</span>
+    <span class="post-emoji">🕊️</span>
+  </div>
+  <div class="post-hook">Você foi feita para ser livre.<br>Mas liberdade bíblica não é o que a cultura ensina.</div>
+  <div class="roteiro-label">Texto completo da legenda</div>
+  <div class="text-body">Você foi feita para ser livre.
+Mas liberdade bíblica não é o que a cultura ensina.
+
+A cultura diz: liberdade é fazer o que você quer.
+A Bíblia diz: liberdade é não ser escrava do que você quer.
+
+Há uma diferença enorme.
+
+A mulher que "faz o que quer" mas não consegue parar de checar o celular,
+não consegue dizer não,
+não consegue ficar sozinha sem ansiedade —
+
+essa mulher não está livre.
+
+Ela está escravizada por apetites
+que ela aprendeu a chamar de liberdade.
+
+<em>"Para a liberdade foi que Cristo nos libertou." (Gl 5.1)</em>
+
+Liberdade em Cristo não é ausência de limites.
+É ausência de escravidão.</div>
+  <div class="cta-box"><span>💬 Você consegue identificar alguma escravidão que você aprendeu a chamar de liberdade? Me conta.</span></div>
+</div>
+
+<!-- ── Jul 30 · Carrossel ── -->
+<div class="post-card card-carr">
+  <div class="post-meta">
+    <span class="post-date">Quinta, 30 jul</span>
+    <span class="format-badge fb-carr">📊 Carrossel</span>
+    <span class="post-emoji">👑</span>
+  </div>
+  <div class="post-hook">A decisão que custou<br>o reino de Salomão</div>
+  <div class="roteiro-label">Roteiro dos slides</div>
+  <div class="slides-grid">
+    <div class="slide capa"><div class="slide-num">Capa</div><div class="slide-text"><b>A decisão que custou o reino de Salomão</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 2</div><div class="slide-text">Salomão começou bem.
+
+Pediu sabedoria quando poderia ter pedido riqueza.
+Deus o honrou além do que pediu.</div></div>
+    <div class="slide"><div class="slide-num">Slide 3</div><div class="slide-text">Mas há uma frase que aparece repetida em 1 Reis 11:
+
+<em>"Salomão amava..."</em>
+
+Seguida de coisas que Deus havia proibido.</div></div>
+    <div class="slide"><div class="slide-num">Slide 4</div><div class="slide-text">Ele não deixou Deus de uma vez.
+
+Ele foi cedendo em pequenos compromissos.
+
+Uma esposa estrangeira que trouxe seus deuses.
+Depois outra. Depois outra.
+700 esposas. 300 concubinas.</div></div>
+    <div class="slide"><div class="slide-num">Slide 5</div><div class="slide-text">E o coração foi sendo dividido
+até que não pertencia mais a Deus.
+
+<em>"E o seu coração não era perfeito para com o Senhor." (1 Rs 11.4)</em></div></div>
+    <div class="slide"><div class="slide-num">Slide 6</div><div class="slide-text">O que destruiu Salomão não foi um pecado enorme.
+
+Foi a acumulação de pequenos compromissos.
+Cada um parecendo razoável.
+<b>Cada um cedendo um pouco mais.</b></div></div>
+    <div class="slide"><div class="slide-num">Slide 7</div><div class="slide-text">Onde você está cedendo
+em pequenos compromissos
+que parecem razoáveis?</div></div>
+    <div class="slide cta"><div class="slide-num">CTA</div><div class="slide-text">📌 Salve e reflita.
+
+💬 Me conta: como você identifica quando está cedendo aos poucos?</div></div>
+  </div>
+</div>
+
+<!-- ── Jul 31 · Reel ── -->
+<div class="post-card card-reel">
+  <div class="post-meta">
+    <span class="post-date">Sexta, 31 jul</span>
+    <span class="format-badge fb-reel">🎬 Reel</span>
+    <span class="post-emoji">🌳</span>
+  </div>
+  <div class="post-hook">Julho te fez crescer<br><span class="hook-highlight">ou te fez recuar?</span></div>
+  <div class="roteiro-label">Roteiro — retrospectiva do mês</div>
+  <div class="reel-script">Julho te fez crescer ou te fez recuar?
+
+Não estou perguntando sobre métricas.
+
+Estou perguntando sobre você.
+
+Você foi mais honesta consigo mesma?
+Você avançou numa área que estava travada?
+Você perdoou alguém — mesmo sem vontade?
+Você disse sim pra algo que te dava medo?
+Você cuidou do que Deus colocou sob sua responsabilidade?
+
+Crescimento não é linear.
+Não é glamouroso.
+Não aparece sempre no exterior.
+
+Às vezes crescer em julho
+parece como segurar firme quando tudo queria te soltar.
+
+E isso conta.
+
+<em>"O justo... é como árvore plantada junto a ribeiros de água." (Sl 1.3)</em>
+
+A árvore não grita quando cresce.
+Ela só vai fundo.</div>
+  <div class="cta-box"><span>💬 Me conta: como foi seu julho?</span></div>
+  <div class="tip-box"><span>💡 Post de fechamento do mês. Alta taxa de comentários esperada. Responda todos — esse é o post de comunidade do mês.</span></div>
+</div>
+
+</div><!-- /week-wrap -->
+
+<!-- SUMMARY -->
+<div class="summary">
+  <h2>Resumo Estratégico — Julho 2026</h2>
+  <p>Calendário baseado na análise real dos posts e Insights de @alineataide</p>
+  <div class="sum-grid">
+    <div class="sum-stat"><div class="sv">27</div><div class="sl">Posts totais</div></div>
+    <div class="sum-stat"><div class="sv">10</div><div class="sl">Reels (crescimento)</div></div>
+    <div class="sum-stat"><div class="sv">11</div><div class="sl">Carrosséis (saves)</div></div>
+    <div class="sum-stat"><div class="sv">6</div><div class="sl">Textos (comunidade)</div></div>
+  </div>
+</div>
+
+<!-- STRATEGY NOTE -->
+<div style="max-width:900px;margin:32px auto;padding:0 20px 60px">
+  <div style="background:#fff;border-radius:20px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #eee">
+    <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#bbb;margin-bottom:16px">Notas estratégicas do calendário</div>
+    <div style="display:grid;gap:12px">
+      <div style="padding:14px;background:#FFF5F7;border-radius:12px;border:1px solid rgba(225,48,108,.2)">
+        <div style="font-size:11px;font-weight:700;color:var(--pink);margin-bottom:4px">🎬 REELS — Foco em crescimento</div>
+        <div style="font-size:13px;color:#555;line-height:1.6">Publicar sempre Qua/Sex quando possível. Os dados mostram que "Deus não [X]. Ele faz [Y mais radical]" é a estrutura de maior alcance. Nenhum Reel deve ser publicado no mesmo dia que outro — os dados de Jun 16 mostram canibalização quando 3 posts saem juntos.</div>
+      </div>
+      <div style="padding:14px;background:#F0F4FF;border-radius:12px;border:1px solid rgba(64,93,230,.2)">
+        <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px">📊 CARROSSÉIS — Foco em saves e autoridade</div>
+        <div style="font-size:13px;color:#555;line-height:1.6">Sempre publicar com "📌 Salve" no CTA. Carrosséis de neurociência têm alta taxa de compartilhamento. Pares temáticos (Carr+Reel no dia seguinte) amplificam o alcance total do tema.</div>
+      </div>
+      <div style="padding:14px;background:#F5F0FF;border-radius:12px;border:1px solid rgba(131,58,180,.2)">
+        <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:4px">📝 TEXTOS — Foco em profundidade e comentários</div>
+        <div style="font-size:13px;color:#555;line-height:1.6">Publicar Sáb/Dom quando a audiência tem mais tempo. Sempre terminar com pergunta direta. São os posts com maior taxa de comentários — responder todo comentário na primeira hora.</div>
+      </div>
+      <div style="padding:14px;background:#F0FDF4;border-radius:12px;border:1px solid rgba(16,185,129,.25)">
+        <div style="font-size:11px;font-weight:700;color:#065F46;margin-bottom:4px">🤝 COLLABS — Amplificador comprovado</div>
+        <div style="font-size:13px;color:#555;line-height:1.6">Os dados mostram que os maiores posts do período analisado foram collabs com @nataliempinheiro (37K e 17K likes). Julho é bom mês para propor 1-2 collabs nos temas: mulheres na Bíblia, neurociência do perdão, identidade feminina bíblica.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
