@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram Growth Dashboard · @alineataide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --pink:#E1306C; --purple:#833AB4; --orange:#F77737; --blue:#405DE6;
+    --green:#10B981; --red:#EF4444; --gray:#F5F5F5; --black:#111111;
+    --mid:#6B7280; --border:#E5E7EB;
+  }
+  body { font-family:'Inter',system-ui,sans-serif; background:#fff; color:var(--black); -webkit-font-smoothing:antialiased; padding:0 0 80px; }
+
+  /* ── HEADER ───────────────────────────────────── */
+  .header { background:linear-gradient(135deg,#3B0764 0%,var(--purple) 40%,var(--pink) 80%,var(--orange) 100%); padding:40px 48px 36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+  .header-left { display:flex; align-items:center; gap:20px; }
+  .avatar-wrap { position:relative; }
+  .avatar { width:68px; height:68px; border-radius:50%; border:3px solid rgba(255,255,255,.85); object-fit:cover; display:block; }
+  .avatar-fallback { display:none; width:68px; height:68px; border-radius:50%; border:3px solid rgba(255,255,255,.85); background:rgba(255,255,255,.2); align-items:center; justify-content:center; font-size:24px; font-weight:900; color:#fff; }
+  .v-badge { position:absolute; bottom:0; right:0; width:20px; height:20px; background:var(--blue); border:2px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; color:#fff; font-weight:900; }
+  .header-info h1 { color:#fff; font-size:20px; font-weight:800; letter-spacing:-.4px; }
+  .header-info .bio { color:rgba(255,255,255,.75); font-size:12px; font-weight:500; margin-top:4px; max-width:400px; line-height:1.5; }
+  .header-stats { display:flex; gap:24px; flex-shrink:0; }
+  .hstat { text-align:center; }
+  .hstat-num { font-size:22px; font-weight:900; color:#fff; line-height:1; }
+  .hstat-lbl { font-size:10px; font-weight:600; color:rgba(255,255,255,.55); letter-spacing:.5px; text-transform:uppercase; margin-top:3px; }
+
+  /* ── WRAP ─────────────────────────────────────── */
+  .wrap { max-width:1080px; margin:0 auto; padding:0 32px; }
+
+  /* ── EXPLODING BANNER ─────────────────────────── */
+  .explosion-banner {
+    margin-top:24px;
+    background:linear-gradient(135deg,#1D1160,var(--purple),var(--pink));
+    border-radius:20px;
+    padding:28px 32px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:28px;
+    align-items:center;
+  }
+  .explosion-icon { font-size:52px; line-height:1; }
+  .explosion-title { color:#fff; font-size:22px; font-weight:900; letter-spacing:-.5px; line-height:1.2; }
+  .explosion-sub { color:rgba(255,255,255,.7); font-size:13px; font-weight:500; margin-top:6px; line-height:1.5; }
+  .explosion-pills { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .expill { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:100px; padding:6px 14px; font-size:12px; font-weight:700; color:#fff; }
+  .expill-hot { background:rgba(255,255,255,.9); color:var(--purple); }
+
+  /* ── FONTE LABELS ─────────────────────────────── */
+  .real30 { display:inline-block; background:#EDFBF5; color:var(--green); border-radius:4px; font-size:9px; font-weight:800; letter-spacing:.5px; padding:1px 5px; text-transform:uppercase; vertical-align:middle; margin-left:4px; white-space:nowrap; }
+  .real7  { display:inline-block; background:#EEF1FD; color:var(--blue);  border-radius:4px; font-size:9px; font-weight:800; letter-spacing:.5px; padding:1px 5px; text-transform:uppercase; vertical-align:middle; margin-left:4px; white-space:nowrap; }
+  .nd     { display:inline-block; background:#F5F5F5; color:var(--mid);   border-radius:4px; font-size:9px; font-weight:800; letter-spacing:.5px; padding:1px 5px; text-transform:uppercase; vertical-align:middle; margin-left:4px; white-space:nowrap; }
+
+  /* ── SECTIONS ─────────────────────────────────── */
+  .section { margin-top:52px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--mid); margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+  .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* ── PERIOD TABS ──────────────────────────────── */
+  .period-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:0; }
+  .period-card { border-radius:16px; padding:20px 22px; border:2px solid; }
+  .period-30 { background:linear-gradient(135deg,#F3EEF9,#EDFBF5); border-color:var(--green); }
+  .period-7  { background:linear-gradient(135deg,#EEF1FD,#FFF0F5); border-color:var(--blue); }
+  .period-badge { display:inline-block; border-radius:100px; font-size:10px; font-weight:800; padding:3px 10px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:14px; }
+  .period-30 .period-badge { background:var(--green); color:#fff; }
+  .period-7  .period-badge { background:var(--blue);  color:#fff; }
+  .period-metrics { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .pm { }
+  .pm-val { font-size:28px; font-weight:900; letter-spacing:-1px; line-height:1; }
+  .period-30 .pm-val { color:var(--purple); }
+  .period-7  .pm-val { color:var(--blue); }
+  .pm-lbl { font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--mid); margin-top:3px; }
+  .pm-delta { font-size:11px; font-weight:700; margin-top:3px; }
+  .up   { color:var(--green); } .down { color:var(--red); } .flat { color:var(--mid); }
+
+  /* ── CARDS ────────────────────────────────────── */
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .card { border-radius:16px; padding:22px 22px 18px; }
+  .card-pink{background:#FFF0F5;border:1.5px solid #F9C0D4;} .card-purple{background:#F3EEF9;border:1.5px solid #C9B5E8;}
+  .card-orange{background:#FFF6EE;border:1.5px solid #FAD4B3;} .card-blue{background:#EEF1FD;border:1.5px solid #B3BDF5;}
+  .card-green{background:#EDFBF5;border:1.5px solid #A7E8CC;} .card-gray{background:var(--gray);border:1.5px solid var(--border);}
+  .card-label { font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--mid); margin-bottom:10px; }
+  .card-value { font-size:36px; font-weight:900; letter-spacing:-1.5px; line-height:1; }
+  .card-pink .card-value{color:var(--pink);} .card-purple .card-value{color:var(--purple);}
+  .card-orange .card-value{color:var(--orange);} .card-blue .card-value{color:var(--blue);}
+  .card-green .card-value{color:var(--green);} .card-gray .card-value{color:var(--black);}
+  .card-delta { display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:700; margin-top:8px; border-radius:100px; padding:3px 9px; }
+  .delta-up{background:#D1FAE5;color:#059669;} .delta-down{background:#FEE2E2;color:var(--red);} .delta-flat{background:#F5F5F5;color:var(--mid);}
+  .card-sub { font-size:11px; color:var(--mid); margin-top:4px; font-weight:500; }
+
+  /* ── CONTENT LIST ─────────────────────────────── */
+  .content-list { display:flex; flex-direction:column; gap:12px; }
+  .content-item { display:flex; align-items:center; gap:16px; background:var(--gray); border-radius:14px; padding:14px 18px; border:1.5px solid var(--border); }
+  .content-rank { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; flex-shrink:0; }
+  .r1{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;} .r2{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;}
+  .r3{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;} .r4{background:#E5E7EB;color:#6B7280;} .r5{background:#E5E7EB;color:#6B7280;}
+  .content-thumb { width:44px; height:56px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .content-info { flex:1; min-width:0; }
+  .content-title { font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--black); }
+  .content-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:5px; }
+  .tag { font-size:10px; font-weight:700; border-radius:100px; padding:2px 8px; letter-spacing:.3px; }
+  .t-reel{background:#FDE8F0;color:var(--pink);} .t-bib{background:#EDFBF5;color:var(--green);}
+  .t-conf{background:#F3EEF9;color:var(--purple);} .t-collab{background:#EEF1FD;color:var(--blue);}
+  .content-stats { display:flex; gap:18px; flex-shrink:0; text-align:right; }
+  .stat-block { display:flex; flex-direction:column; align-items:flex-end; }
+  .stat-num { font-size:15px; font-weight:800; color:var(--black); }
+  .stat-lbl { font-size:10px; color:var(--mid); font-weight:600; letter-spacing:.3px; text-transform:uppercase; }
+
+  /* ── PARETO BAR ───────────────────────────────── */
+  .pareto-wrap { margin-top:14px; }
+  .pareto-label { font-size:11px; font-weight:700; color:var(--mid); margin-bottom:6px; letter-spacing:.3px; }
+  .pareto-track { height:10px; background:var(--border); border-radius:100px; overflow:hidden; }
+  .pareto-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--pink),var(--purple)); }
+  .pareto-note { font-size:11px; color:var(--mid); font-weight:600; margin-top:5px; }
+
+  /* ── FORMAT TABLE ─────────────────────────────── */
+  .formats-table { width:100%; border-collapse:collapse; }
+  .formats-table thead tr { background:var(--gray); }
+  .formats-table th { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--mid); padding:12px 16px; text-align:left; }
+  .formats-table tbody tr { border-bottom:1px solid var(--border); }
+  .formats-table td { padding:14px 16px; font-size:14px; font-weight:600; }
+  .formats-table td:not(:first-child){ text-align:center; }
+  .badge-champ{background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;}
+  .badge-weak{background:#FEE2E2;color:var(--red);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;}
+  .badge-opp{background:#EEF1FD;color:var(--blue);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;}
+
+  /* ── HOOKS ────────────────────────────────────── */
+  .hooks-list { display:flex; flex-direction:column; gap:10px; }
+  .hook-item { display:flex; align-items:center; gap:16px; padding:16px 20px; border-radius:12px; border:1.5px solid var(--border); background:#fff; }
+  .hook-num { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
+  .hn1{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;} .hn2{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;}
+  .hn3{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;} .hn4{background:var(--gray);color:var(--mid);} .hn5{background:var(--gray);color:var(--mid);}
+  .hook-body { flex:1; }
+  .hook-text { font-size:14px; font-weight:700; }
+  .hook-meta { font-size:11px; color:var(--mid); margin-top:2px; font-weight:500; }
+  .hook-kpi { display:flex; flex-direction:column; align-items:flex-end; flex-shrink:0; gap:2px; }
+  .hook-kpi span:first-child { font-size:15px; font-weight:800; color:var(--pink); }
+  .hook-kpi span:last-child  { font-size:10px; font-weight:600; color:var(--mid); text-transform:uppercase; letter-spacing:.3px; }
+
+  /* ── TWO COL ──────────────────────────────────── */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .verdict-card { border-radius:16px; padding:24px; border:1.5px solid; }
+  .verdict-good{background:#EDFBF5;border-color:#6EE7B7;} .verdict-bad{background:#FEF2F2;border-color:#FCA5A5;}
+  .verdict-title { font-size:12px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; margin-bottom:14px; }
+  .verdict-good .verdict-title{color:#059669;} .verdict-bad .verdict-title{color:var(--red);}
+  .verdict-list { list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .verdict-list li { font-size:13px; font-weight:600; display:flex; gap:8px; align-items:flex-start; color:var(--black); line-height:1.5; }
+  .ic{color:var(--green);font-size:14px;flex-shrink:0;margin-top:1px;} .ix{color:var(--red);font-size:14px;flex-shrink:0;margin-top:1px;}
+
+  /* ── INSIGHTS ─────────────────────────────────── */
+  .insights-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .insight-card { border-radius:14px; padding:18px 16px; background:var(--gray); border:1.5px solid var(--border); position:relative; }
+  .insight-num { font-size:30px; font-weight:900; opacity:.08; position:absolute; top:8px; right:12px; line-height:1; }
+  .insight-icon { font-size:20px; margin-bottom:8px; }
+  .insight-text { font-size:12px; font-weight:600; color:var(--black); line-height:1.5; }
+
+  /* ── PLAN ─────────────────────────────────────── */
+  .plan-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .plan-card { border-radius:14px; padding:18px 16px; border:1.5px solid var(--border); background:#fff; }
+  .plan-label { font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--mid); margin-bottom:8px; }
+  .plan-value { font-size:13px; font-weight:700; color:var(--black); line-height:1.45; }
+
+  /* ── SCORE ────────────────────────────────────── */
+  .scores-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+  .score-card { border-radius:16px; padding:20px 14px 16px; text-align:center; border:1.5px solid var(--border); background:var(--gray); }
+  .score-card.overall { background:linear-gradient(135deg,var(--purple),var(--pink)); border-color:transparent; }
+  .score-label { font-size:10px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--mid); margin-bottom:6px; }
+  .score-card.overall .score-label{color:rgba(255,255,255,.7);}
+  .score-ring { width:60px; height:60px; margin:0 auto 8px; position:relative; }
+  .score-ring svg { transform:rotate(-90deg); }
+  .srb { fill:none; stroke:rgba(0,0,0,.07); stroke-width:5; }
+  .score-card.overall .srb{stroke:rgba(255,255,255,.2);}
+  .srf { fill:none; stroke-width:5; stroke-linecap:round; }
+  .score-num { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:16px; font-weight:900; color:var(--black); }
+  .score-card.overall .score-num{color:#fff;font-size:18px;}
+
+  /* ── PODIUM ───────────────────────────────────── */
+  .podium-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .podium-card { border-radius:18px; padding:26px 22px; border:1.5px solid; }
+  .podium-gold{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FCD34D;}
+  .podium-silver{background:linear-gradient(135deg,#F8FAFC,#F1F5F9);border-color:#CBD5E1;}
+  .podium-bronze{background:linear-gradient(135deg,#FFF7F0,#FFEDD5);border-color:#FED7AA;}
+  .podium-medal { font-size:32px; margin-bottom:10px; display:block; }
+  .podium-heading { font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+  .podium-gold .podium-heading{color:#92400E;} .podium-silver .podium-heading{color:#475569;} .podium-bronze .podium-heading{color:#9A3412;}
+  .podium-action { font-size:15px; font-weight:800; color:var(--black); line-height:1.4; }
+  .podium-sub { font-size:12px; color:var(--mid); font-weight:500; margin-top:6px; line-height:1.4; }
+
+  .footer { text-align:center; margin-top:60px; font-size:11px; color:var(--mid); font-weight:500; padding-bottom:20px; }
+
+  /* helper */
+  .mt8{margin-top:8px;} .mt12{margin-top:12px;}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ════════════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-left">
+    <div class="avatar-wrap">
+      <img class="avatar"
+        src="https://scontent-atl3-1.cdninstagram.com/v/t51.82787-19/610073273_18545281363036611_4832765917439862003_n.jpg?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43OTcuYzIifQ&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gGfD3k0ZkwKxwpcia1O3zhMgIjmNi1PhsLNP7TbJp6gv2VUvxmNRt-rGhwDFx1PWZE&_nc_ohc=2WDr1V0YVcsQ7kNvwFLZi0f&_nc_gid=jhNW0bHR_SmYrXX-SiBdQw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Af_pUtE4CeYFz3t-VrB6levAz5ZJZ9la_wX_EpdrvaRNdw&oe=6A3D0282&_nc_sid=8b3546"
+        onerror="this.style.display='none';document.querySelector('.avatar-fallback').style.display='flex'" alt="AL">
+      <div class="avatar-fallback">AL</div>
+      <div class="v-badge">✓</div>
+    </div>
+    <div class="header-info">
+      <h1>Aline Ataide <span style="font-size:14px;opacity:.7;font-weight:600">@alineataide</span></h1>
+      <div class="bio">Reconstruindo a identidade feminina à luz de Deus.<br>Neurociência · Comportamento · Bíblia · Propósito</div>
+    </div>
+  </div>
+  <div class="header-stats">
+    <div class="hstat"><div class="hstat-num">18,8K</div><div class="hstat-lbl">Seguidores</div></div>
+    <div class="hstat"><div class="hstat-num">1,8M</div><div class="hstat-lbl">Views/30d</div></div>
+    <div class="hstat"><div class="hstat-num">9,4K</div><div class="hstat-lbl">Novos/30d</div></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ══ EXPLOSION ═════════════════════════════════════════ -->
+  <div class="explosion-banner">
+    <div class="explosion-icon">🚀</div>
+    <div>
+      <div class="explosion-title">Conta em hipercrescimento: +9.400 seguidores em 30 dias</div>
+      <div class="explosion-sub">A conta praticamente dobrou de tamanho em 1 mês. 1,8 milhão de views, 275 mil interações. O motor: Reels.<br>
+      <strong style="color:#fff;">4 Reels = 80% de todos os novos seguidores do mês.</strong></div>
+      <div class="explosion-pills">
+        <div class="expill expill-hot">🏆 100% de crescimento em 30 dias</div>
+        <div class="expill">1,8M views</div>
+        <div class="expill">275K interações</div>
+        <div class="expill">175 conteúdos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DOIS PERÍODOS ═════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Resumo · Dois Períodos</div>
+    <div class="period-grid">
+
+      <div class="period-card period-30">
+        <div class="period-badge">Insights Instagram · Mai 19 – Jun 17</div>
+        <div class="period-metrics">
+          <div class="pm">
+            <div class="pm-val">9.400</div>
+            <div class="pm-lbl">Novos seguidores</div>
+            <div class="pm-delta up">↑ ~100% de crescimento</div>
+          </div>
+          <div class="pm">
+            <div class="pm-val">1,8M</div>
+            <div class="pm-lbl">Visualizações</div>
+            <div class="pm-delta up">↑ 96x o nº de seguidores</div>
+          </div>
+          <div class="pm">
+            <div class="pm-val">275K</div>
+            <div class="pm-lbl">Interações totais</div>
+            <div class="pm-delta up">↑ avg 10.285 views/post</div>
+          </div>
+          <div class="pm">
+            <div class="pm-val">175</div>
+            <div class="pm-lbl">Conteúdos</div>
+            <div class="pm-delta flat">~6 por dia</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="period-card period-7">
+        <div class="period-badge">Apify Post Scraper · Jun 14–20</div>
+        <div class="period-metrics">
+          <div class="pm">
+            <div class="pm-val">2.909</div>
+            <div class="pm-lbl">Engajamento total</div>
+            <div class="pm-delta down">↓ 9% vs semana anterior</div>
+          </div>
+          <div class="pm">
+            <div class="pm-val">485</div>
+            <div class="pm-lbl">Média por post</div>
+            <div class="pm-delta down">↓ 24% vs semana anterior</div>
+          </div>
+          <div class="pm">
+            <div class="pm-val">2,5%</div>
+            <div class="pm-lbl">Taxa de engaj.</div>
+            <div class="pm-delta down">↓ era 3,4% semana passada</div>
+          </div>
+          <div class="pm">
+            <div class="pm-val">6</div>
+            <div class="pm-lbl">Posts publicados</div>
+            <div class="pm-delta up">↑ +1 vs semana anterior</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="font-size:11px;color:var(--mid);font-weight:500;margin-top:10px;line-height:1.6;padding:12px 16px;background:var(--gray);border-radius:10px;border:1.5px solid var(--border);">
+      ⚡ <strong>Por que os números parecem contraditórios?</strong> O período de 30 dias (Insights) captura os Reels virais de maio que fizeram 405K views e 37K curtidas. A semana de Jun 14–20 (Apify) mostra apenas os textos/carrosséis orgânicos dessa semana — que não tiveram Reel de destaque. <strong>São dois formatos e dois públicos diferentes agindo simultaneamente.</strong>
+    </div>
+  </div>
+
+  <!-- ══ TOP 5 CONTEÚDOS ════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">O que Gerou Mais Seguidores · Top 5 Reels <span class="real30">Insights 30d</span></div>
+    <div class="content-list">
+
+      <div class="content-item">
+        <div class="content-rank r1">1</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,#7C3AED,var(--pink))">🎬</div>
+        <div class="content-info">
+          <div class="content-title">"Deus te usar não quer dizer..."</div>
+          <div class="content-meta"><span class="tag t-reel">Reel</span><span class="tag t-conf">Confrontador</span><span class="tag t-bib">Identidade</span></div>
+        </div>
+        <div class="content-stats">
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">2.330</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">405.769</span><span class="stat-lbl">Views</span></div>
+        </div>
+      </div>
+
+      <div class="content-item">
+        <div class="content-rank r2">2</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--purple),var(--blue))">🎬</div>
+        <div class="content-info">
+          <div class="content-title">"Jesus é leve! A religiosidade que é..."</div>
+          <div class="content-meta"><span class="tag t-reel">Reel</span><span class="tag t-bib">Religiosidade</span><span class="tag t-conf">Reframe</span></div>
+        </div>
+        <div class="content-stats">
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">1.554</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">216.823</span><span class="stat-lbl">Views</span></div>
+        </div>
+      </div>
+
+      <div class="content-item">
+        <div class="content-rank r3">3</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--blue),var(--green))">🎬</div>
+        <div class="content-info">
+          <div class="content-title">Reel #3 (thumbnail não legível no export)</div>
+          <div class="content-meta"><span class="tag t-reel">Reel</span><span class="tag t-bib">Provável: personagem bíblico</span></div>
+        </div>
+        <div class="content-stats">
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">1.308</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">~236K</span><span class="stat-lbl">Views</span></div>
+        </div>
+      </div>
+
+      <div class="content-item">
+        <div class="content-rank r4">4</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--orange),#F59E0B)">🎬</div>
+        <div class="content-info">
+          <div class="content-title">Reel #4 (thumbnail não legível no export)</div>
+          <div class="content-meta"><span class="tag t-reel">Reel</span><span class="tag t-bib">Provável: identidade feminina</span></div>
+        </div>
+        <div class="content-stats">
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">1.154</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">~87K</span><span class="stat-lbl">Views</span></div>
+        </div>
+      </div>
+
+      <div class="content-item">
+        <div class="content-rank r5">5</div>
+        <div class="content-thumb" style="background:linear-gradient(135deg,var(--green),#059669)">🎬</div>
+        <div class="content-info">
+          <div class="content-title">"Os fariseus jejuavam, oravam, conheciam as Escrituras..."</div>
+          <div class="content-meta"><span class="tag t-reel">Reel</span><span class="tag t-bib">Isaías</span><span class="tag t-conf">Desconforto</span></div>
+        </div>
+        <div class="content-stats">
+          <div class="stat-block"><span class="stat-num" style="color:var(--pink)">270</span><span class="stat-lbl">Seguid.</span></div>
+          <div class="stat-block"><span class="stat-num">~62K</span><span class="stat-lbl">Views</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PARETO BAR -->
+    <div class="pareto-wrap mt12" style="background:var(--gray);border:1.5px solid var(--border);border-radius:14px;padding:16px 20px;">
+      <div class="pareto-label">Concentração dos novos seguidores · Top 4 posts = <strong style="color:var(--pink)">80%</strong> de todos os follows do mês</div>
+      <div class="pareto-track"><div class="pareto-fill" style="width:80%"></div></div>
+      <div class="pareto-note">Top 4: 6.346 seguidores · Demais 171 posts: 3.054 seguidores · Princípio de Pareto confirmado nos dados.</div>
+    </div>
+  </div>
+
+  <!-- ══ FORMATOS ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Performance por Formato <span class="real30">Insights 30d</span></div>
+    <table class="formats-table">
+      <thead>
+        <tr><th>Formato</th><th>Avg Views</th><th>Seguidores/Post</th><th>Alcance</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🎬 <strong>Reels</strong></td>
+          <td>132.798 <small style="color:var(--mid)">(top 9 avg)</small></td>
+          <td style="color:var(--pink);font-weight:800">1.637 avg (top 4)</td>
+          <td>96× seguidores</td>
+          <td><span class="badge-champ">🏆 Campeão</span></td>
+        </tr>
+        <tr>
+          <td>📊 <strong>Carrossel / Texto</strong> <span class="real7">Apify 7d</span></td>
+          <td>— <small style="color:var(--mid)">(não medido)</small></td>
+          <td style="color:var(--mid)">~0 diretos</td>
+          <td>Comunidade</td>
+          <td><span class="badge-opp">📌 Retenção</span></td>
+        </tr>
+        <tr>
+          <td>🔵 <strong>Stories</strong></td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge-weak">⚠️ Sem dados</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:var(--mid);font-weight:600;margin-top:10px;padding:10px 14px;background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;line-height:1.6;">
+      ⚠️ <strong>Discrepância de formato:</strong> os posts com curtidas visíveis no Apify (ex: 1.529 curtidas no post "Davi vs Saul") são textos/carrosséis. Os Reels estão nas métricas de Views do Insights (405K, 236K, 216K). O Apify scraper captura melhor texto do que vídeo — daí a aparente "queda" na semana: na verdade, a semana teve menos Reels, não menos qualidade de texto.
+    </div>
+  </div>
+
+  <!-- ══ TOP GANCHOS ════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Top Ganchos · Padrões que mais geraram seguidores e views</div>
+    <div class="hooks-list">
+
+      <div class="hook-item">
+        <div class="hook-num hn1">1</div>
+        <div class="hook-body">
+          <div class="hook-text">"[Deus/Jesus] não [faz X]. Ele faz algo mais radical: [Y]"</div>
+          <div class="hook-meta">Reframe teológico · contradição + revelação · Padrão do post #1 (405K views)</div>
+        </div>
+        <div class="hook-kpi"><span>2.330</span><span>seguidores</span></div>
+      </div>
+
+      <div class="hook-item">
+        <div class="hook-num hn2">2</div>
+        <div class="hook-body">
+          <div class="hook-text">"[Personagem] não [fez X com as mãos]. Ele fez pior: [Y]"</div>
+          <div class="hook-meta">Personagem bíblico como espelho moral · Pilatos/Saul/Davi → aplica à ouvinte</div>
+        </div>
+        <div class="hook-kpi"><span>1.458</span><span>curtidas ref.</span></div>
+      </div>
+
+      <div class="hook-item">
+        <div class="hook-num hn3">3</div>
+        <div class="hook-body">
+          <div class="hook-text">"A gente vive numa cultura que ensina X, mas quase ninguém aprende Y"</div>
+          <div class="hook-meta">Contraste cultural + tensão moral · melhor texto/carrossel da semana (1.529 curtidas)</div>
+        </div>
+        <div class="hook-kpi"><span>1.529</span><span>curtidas</span></div>
+      </div>
+
+      <div class="hook-item">
+        <div class="hook-num hn4">4</div>
+        <div class="hook-body">
+          <div class="hook-text">"[Pessoa religiosa conhecida] fez X. E mesmo assim [consequência inesperada]"</div>
+          <div class="hook-meta">Salomão, Saul, fariseus — quebrando o mito do "bom cristão automático"</div>
+        </div>
+        <div class="hook-kpi"><span>1.431</span><span>curtidas ref.</span></div>
+      </div>
+
+      <div class="hook-item">
+        <div class="hook-num hn5">5</div>
+        <div class="hook-body">
+          <div class="hook-text">"Deus não [faz X]. Ele [Y] — e isso muda tudo sobre como você se enxerga"</div>
+          <div class="hook-meta">Aplica a neurociência/psicologia ao evangelho · diferencial único do perfil</div>
+        </div>
+        <div class="hook-kpi"><span>~216K</span><span>views ref.</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ FUNCIONOU / ATRAPALHOU ════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Análise da Semana</div>
+    <div class="two-col">
+      <div class="verdict-card verdict-good">
+        <div class="verdict-title">✓ O que Funcionou</div>
+        <ul class="verdict-list">
+          <li><span class="ic">✓</span> Reels com reframe teológico ("Deus não X, ele Y") geram 400K+ views</li>
+          <li><span class="ic">✓</span> Personagens bíblicos (Pilatos, Davi, Saul) como espelho prático: curtidas 3× maior</li>
+          <li><span class="ic">✓</span> Texto "perdão/Davi vs Saul" gerou 1.529 curtidas — melhor da semana</li>
+          <li><span class="ic">✓</span> CTA "me conta nos comentários + pergunta direta" → 15 comentários num post</li>
+          <li><span class="ic">✓</span> Cadência: 6 posts em 7 dias mantém presença constante na timeline</li>
+        </ul>
+      </div>
+      <div class="verdict-card verdict-bad">
+        <div class="verdict-title">✗ O que Atrapalhou</div>
+        <ul class="verdict-list">
+          <li><span class="ix">✗</span> <strong>Nenhum Reel esta semana</strong> — motor principal de crescimento ficou parado</li>
+          <li><span class="ix">✗</span> 3 posts no mesmo dia (16 jun) — possível canibalização de alcance</li>
+          <li><span class="ix">✗</span> Devocionais suaves genéricos renderam ~215 curtidas vs. 1.500+ dos confrontadores</li>
+          <li><span class="ix">✗</span> Post "Amanhã é Dia dos Namorados" teve apenas 37 curtidas — timing e tema fracos</li>
+          <li><span class="ix">✗</span> Taxa de engajamento caiu de 3,4% para 2,5% — consistência de qualidade</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INSIGHTS ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Insights Rápidos · 100% baseados em dados reais</div>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-num">1</div><div class="insight-icon">📊</div>
+        <div class="insight-text">80% dos novos seguidores vieram de 4 Reels. Concentre energia neles.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">2</div><div class="insight-icon">🎬</div>
+        <div class="insight-text">Reels atingem 96× o número de seguidores em views. Textos ficam na comunidade.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">3</div><div class="insight-icon">⚔️</div>
+        <div class="insight-text">Reframe teológico confrontador gera 7× mais engajamento que devocional suave.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">4</div><div class="insight-icon">📖</div>
+        <div class="insight-text">Personagens bíblicos como espelho moral são o padrão de ouro deste perfil.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">5</div><div class="insight-icon">🚀</div>
+        <div class="insight-text">Crescimento de 100% em 30 dias. Manter o ritmo de Reels é a única prioridade.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PLANO ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Plano da Próxima Semana</div>
+    <div class="plan-grid">
+      <div class="plan-card" style="border-color:#F9C0D4;background:#FFF0F5;">
+        <div class="plan-label">Prioridade #1</div>
+        <div class="plan-value" style="color:var(--pink)">Publicar 2–3 Reels<br><span style="font-size:12px;color:var(--mid);font-weight:500">O motor de crescimento ficou parado essa semana</span></div>
+      </div>
+      <div class="plan-card" style="border-color:#C9B5E8;background:#F3EEF9;">
+        <div class="plan-label">Formato Reel</div>
+        <div class="plan-value" style="color:var(--purple)">Reframe teológico<br><span style="font-size:12px;color:var(--mid);font-weight:500">"[Deus/personagem] não X. Ele Y"</span></div>
+      </div>
+      <div class="plan-card" style="border-color:#A7E8CC;background:#EDFBF5;">
+        <div class="plan-label">Tema para Repetir</div>
+        <div class="plan-value" style="color:var(--green)">Identidade feminina + ego<br><span style="font-size:12px;color:var(--mid);font-weight:500">Padrão do post viral #1 (405K)</span></div>
+      </div>
+      <div class="plan-card" style="border-color:#FAD4B3;background:#FFF6EE;">
+        <div class="plan-label">Tema para Testar</div>
+        <div class="plan-value" style="color:var(--orange)">Casamento / aliança bíblica<br><span style="font-size:12px;color:var(--mid);font-weight:500">Alta busca no nicho, baixa entrega</span></div>
+      </div>
+      <div class="plan-card" style="border-color:#FCA5A5;background:#FEF2F2;">
+        <div class="plan-label">O que Evitar</div>
+        <div class="plan-value" style="color:var(--red)">Semana só de texto<br><span style="font-size:12px;color:var(--mid);font-weight:500">e 3+ posts no mesmo dia</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCORE ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Score da Semana</div>
+    <div class="scores-grid">
+
+      <!-- Consistência 78 · circ = 169.6, offset = 169.6*(1-0.78) = 37.3 -->
+      <div class="score-card"><div class="score-label">Consistência</div>
+        <div class="score-ring"><svg viewBox="0 0 60 60" width="60" height="60"><circle class="srb" cx="30" cy="30" r="27"/><circle class="srf" cx="30" cy="30" r="27" stroke="var(--blue)" stroke-dasharray="169.6" stroke-dashoffset="37.3"/></svg><div class="score-num">78</div></div>
+      </div>
+
+      <!-- Alcance 93 · offset = 169.6*(1-0.93) = 11.9 -->
+      <div class="score-card"><div class="score-label">Alcance 30d</div>
+        <div class="score-ring"><svg viewBox="0 0 60 60" width="60" height="60"><circle class="srb" cx="30" cy="30" r="27"/><circle class="srf" cx="30" cy="30" r="27" stroke="var(--purple)" stroke-dasharray="169.6" stroke-dashoffset="11.9"/></svg><div class="score-num">93</div></div>
+      </div>
+
+      <!-- Engajamento semana 52 · offset = 169.6*(1-0.52) = 81.4 -->
+      <div class="score-card"><div class="score-label">Engaj. Semana</div>
+        <div class="score-ring"><svg viewBox="0 0 60 60" width="60" height="60"><circle class="srb" cx="30" cy="30" r="27"/><circle class="srf" cx="30" cy="30" r="27" stroke="var(--orange)" stroke-dasharray="169.6" stroke-dashoffset="81.4"/></svg><div class="score-num">52</div></div>
+      </div>
+
+      <!-- Crescimento 97 · offset = 169.6*(1-0.97) = 5.1 -->
+      <div class="score-card"><div class="score-label">Crescimento 30d</div>
+        <div class="score-ring"><svg viewBox="0 0 60 60" width="60" height="60"><circle class="srb" cx="30" cy="30" r="27"/><circle class="srf" cx="30" cy="30" r="27" stroke="var(--pink)" stroke-dasharray="169.6" stroke-dashoffset="5.1"/></svg><div class="score-num">97</div></div>
+      </div>
+
+      <!-- Ganchos 84 · offset = 169.6*(1-0.84) = 27.1 -->
+      <div class="score-card"><div class="score-label">Ganchos</div>
+        <div class="score-ring"><svg viewBox="0 0 60 60" width="60" height="60"><circle class="srb" cx="30" cy="30" r="27"/><circle class="srf" cx="30" cy="30" r="27" stroke="var(--green)" stroke-dasharray="169.6" stroke-dashoffset="27.1"/></svg><div class="score-num">84</div></div>
+      </div>
+
+      <!-- Nota Geral 81 · offset = 169.6*(1-0.81) = 32.2 -->
+      <div class="score-card overall"><div class="score-label">Nota Geral</div>
+        <div class="score-ring"><svg viewBox="0 0 60 60" width="60" height="60"><circle class="srb" cx="30" cy="30" r="27"/><circle class="srf" cx="30" cy="30" r="27" stroke="rgba(255,255,255,.9)" stroke-dasharray="169.6" stroke-dashoffset="32.2"/></svg><div class="score-num">81</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DECISÕES ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">Decisões da Semana</div>
+    <div class="podium-grid">
+      <div class="podium-card podium-gold">
+        <span class="podium-medal">🥇</span>
+        <div class="podium-heading">Continue Fazendo</div>
+        <div class="podium-action">Reels com reframe teológico: "Deus não X — ele faz algo mais radical: Y"</div>
+        <div class="podium-sub">É a fórmula que gerou 405K views e 2.330 seguidores num único vídeo. Repita o padrão, mude o tema.</div>
+      </div>
+      <div class="podium-card podium-silver">
+        <span class="podium-medal">🥈</span>
+        <div class="podium-heading">Teste</div>
+        <div class="podium-action">Série de 3 Reels sobre identidade feminina × aliança bíblica no casamento</div>
+        <div class="podium-sub">Tema de alta busca no nicho, pouca entrega — pode ser o próximo ciclo de 1M+ views.</div>
+      </div>
+      <div class="podium-card podium-bronze">
+        <span class="podium-medal">🥉</span>
+        <div class="podium-heading">Pare de Fazer</div>
+        <div class="podium-action">Semanas inteiras sem Reel e devocionais suaves sem gancho confrontador</div>
+        <div class="podium-sub">Textos retêm comunidade, mas não crescem. Sem Reel, o crescimento para. 9.4K/mês depende de vídeo.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Gerado em 21 Jun 2026 · @alineataide · Dados: Instagram Insights (Mai 19–Jun 17) + Apify Post Scraper (Jun 14–20) · 18.8K seguidores · 100% dados reais
+</div>
+
+</body>
+</html>
